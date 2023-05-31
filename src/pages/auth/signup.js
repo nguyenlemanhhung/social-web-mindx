@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from "react";
+import { signUp } from "../../services/api";
 import {
   Box,
   IconButton,
@@ -24,10 +25,9 @@ import {
 
 const SignUpForm = () => {
   const [formData, setFormData] = useState({
-    userName: "",
-    userEmail: "",
-    userPassword: "",
-    userPasswordConfirm: "",
+    username: "",
+    email: "",
+    password: "",
   });
   console.log("formData", formData);
 
@@ -47,10 +47,14 @@ const SignUpForm = () => {
     event.preventDefault();
   };
 
-  const onSignIn = useCallback(async () => {
+  const handleSignUp = async () => {
     try {
-    } catch (error) {}
-  });
+      const response = await signUp(formData);
+      console.log("response:", response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <Box>
       <TextField
@@ -61,7 +65,7 @@ const SignUpForm = () => {
         fullWidth
         label="Tên đăng nhập"
         id="signin-username"
-        name="userName"
+        name="username"
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
@@ -79,7 +83,7 @@ const SignUpForm = () => {
         fullWidth
         label="Email"
         id="signin-email"
-        name="userEmail"
+        name="email"
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
@@ -98,7 +102,7 @@ const SignUpForm = () => {
         type={showPassword ? "text" : "password"}
         label="Mật khẩu"
         id="signin-password"
-        name="userPassword"
+        name="password"
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
@@ -133,7 +137,7 @@ const SignUpForm = () => {
         type={showPasswordConfirm ? "text" : "password"}
         label="Xác thực mật khẩu"
         id="signin-password-confirm"
-        name="userPasswordConfirm"
+        name="passwordConfirm"
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
@@ -147,13 +151,7 @@ const SignUpForm = () => {
                 aria-label="toggle password visibility"
                 onClick={handleClickShowPasswordConfirm}
                 onMouseDown={handleMouseDownPassword}
-              >
-                {/* {showPassword ? (
-                  <VisibilityOff fontSize="small" />
-                ) : (
-                  <Visibility fontSize="small" />
-                )} */}
-              </IconButton>
+              ></IconButton>
             </InputAdornment>
           ),
         }}
@@ -161,6 +159,7 @@ const SignUpForm = () => {
       />
 
       <Button
+        onClick={handleSignUp}
         fullWidth
         sx={{
           borderRadius: "50px",

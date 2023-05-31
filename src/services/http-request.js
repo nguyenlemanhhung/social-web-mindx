@@ -1,26 +1,25 @@
-// import { AxiosInstance, AxiosRequestConfig } from 'axios';
-// import AxiosRequest from './axios-base';
+import AxiosRequest from "./axios-base";
 
-// class HttpRequest {
-//   baseRequest: AxiosInstance;
-//   constructor() {
-//     this.baseRequest = AxiosRequest;
-//   }
+class HttpRequest {
+  baseRequest = null;
+  constructor() {
+    this.baseRequest = AxiosRequest;
+  }
 
-//   async get(url: string, config?: AxiosRequestConfig) {
-//     return this.baseRequest.get(url, config);
-//   }
+  async get(url, config = null) {
+    return this.baseRequest.get(url, config);
+  }
 
-//   async post(url: string, data?: unknown, config?: AxiosRequestConfig) {
-//     return this.baseRequest.post(url, data, config);
-//   }
+  async post(url, payload = {}, config = null) {
+    return this.baseRequest.post(url, payload, config);
+  }
 
-//   async put(url: string, data?: unknown, config?: AxiosRequestConfig) {
-//     return this.baseRequest.put(url, data, config);
-//   }
-//   async delete(url: string, config?: AxiosRequestConfig) {
-//     return this.baseRequest.delete(url, config);
-//   }
-// }
+  async put(url, payload = {}, config = null) {
+    return this.baseRequest.put(url, payload, config);
+  }
+  async delete(url, config = null) {
+    return this.baseRequest.delete(url, config);
+  }
+}
 
-// export default new HttpRequest();
+export default new HttpRequest();
