@@ -14,7 +14,7 @@ const Layout = () => {
     >
       <Header />
 
-      <main style={{ height: "100%" }}>
+      <main style={{ height: "100%", paddingTop: "20px" }}>
         <Container
           maxWidth="xxl"
           sx={{

@@ -53,16 +53,16 @@ const UserProfile = () => {
         </Box>
       </Box>
       <Typography
-        variant="body1"
+        variant="h6"
         sx={{
           mb: 1,
         }}
       >
         Evgen Ledo
       </Typography>
-      <Typography variant="subtitle2">@Evgen Ledo</Typography>
+      <Typography variant="body2">@Evgen Ledo</Typography>
       <Typography
-        variant="body2"
+        variant="subtitle1"
         sx={{
           textAlign: "center",
           margin: "20px 0 30px",

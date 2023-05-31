@@ -1,6 +1,8 @@
 import React from "react";
 import { Typography, Paper, Box, Stack } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import StackItemStyle from "../StackItemStyle";
+import AvatarSmallStyle from "../AvatarSmallStyle";
 
 const friends = [
   {
@@ -43,31 +45,7 @@ const friends = [
     name: "friend 10",
     avatar: require("../../assets/images/profile-10.jpg"),
   },
-  {
-    name: "friend 1",
-    avatar: require("../../assets/images/profile-1.jpg"),
-  },
-  {
-    name: "friend 2",
-    avatar: require("../../assets/images/profile-2.jpg"),
-  },
-  {
-    name: "friend 3",
-    avatar: require("../../assets/images/profile-3.jpg"),
-  },
 ];
-
-const FriendItem = styled(Paper)({
-  display: "flex",
-  justifyContent: "start",
-  alignItems: "center",
-  padding: "5px",
-  backgroundColor: "transparent",
-  borderRadius: "10px",
-  "&:hover": {
-    backgroundColor: "#e7f3ff",
-  },
-});
 
 const FriendsList = () => {
   return (
@@ -79,10 +57,10 @@ const FriendsList = () => {
       }}
     >
       <Typography
-        variant="body1"
+        variant="h6"
         sx={{ marginBottom: "10px", position: "sticky", top: "0" }}
       >
-        Friends List
+        Bạn bè
       </Typography>
 
       <Stack
@@ -93,18 +71,10 @@ const FriendsList = () => {
         }}
       >
         {friends.map((item, idx) => (
-          <FriendItem key={idx} elevation={0}>
-            <img
-              src={item.avatar}
-              style={{
-                width: "35px",
-                height: "35px",
-                borderRadius: "10px",
-                marginRight: "10px",
-              }}
-            />
-            <Typography>{item.name}</Typography>
-          </FriendItem>
+          <StackItemStyle key={idx} elevation={0}>
+            <AvatarSmallStyle src={item.avatar} />
+            <Typography variant="body2">{item.name}</Typography>
+          </StackItemStyle>
         ))}
       </Stack>
     </Box>

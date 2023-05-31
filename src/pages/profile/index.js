@@ -11,6 +11,7 @@ import {
 import { Link } from "react-router-dom";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { styled } from "@mui/material/styles";
+import EditProfile from "./edit";
 
 const ButtonItem = styled(Button)({
   display: "flex",
@@ -85,10 +86,11 @@ const Profile = () => {
             <Grid item xs={5}>
               <Typography sx={{ mb: 3 }}>Settings</Typography>
               <Stack spacing={2}>
-                <ButtonItem component={Link} to="/profile/edit">
+                <EditProfile />
+                {/* <ButtonItem component={Link} to="/profile/edit">
                   Edit Profile
                   <NavigateNextIcon />
-                </ButtonItem>
+                </ButtonItem> */}
                 <ButtonItem>
                   Account Security
                   <NavigateNextIcon />

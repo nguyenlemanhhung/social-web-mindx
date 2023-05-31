@@ -1,13 +1,8 @@
 import React from "react";
-import {
-  Box,
-  Container,
-  IconButton,
-  Typography,
-  Grid,
-  Stack,
-  Button,
-} from "@mui/material";
+import { styled } from "@mui/material/styles";
+import StackItemStyle from "../StackItemStyle";
+import AvatarSmallStyle from "../AvatarSmallStyle";
+import { Box, Typography, Stack } from "@mui/material";
 
 const Group = () => {
   return (
@@ -17,44 +12,18 @@ const Group = () => {
         mt: 3,
       }}
     >
-      <Typography sx={{ mb: 3 }}>Group</Typography>
+      <Typography variant="h6" sx={{ mb: 3 }}>
+        Nhóm tham gia
+      </Typography>
       <Stack spacing={2}>
-        <Button
-          sx={{
-            display: "flex",
-            justifyContent: "start",
-            alignItems: "center",
-          }}
-        >
-          <img
-            src={require("../../assets/images/feed-6.jpg")}
-            style={{
-              width: "50px",
-              height: "50px",
-              marginRight: "10px",
-              borderRadius: "5px",
-            }}
-          />
-          <Typography>Group 1</Typography>
-        </Button>
-        <Button
-          sx={{
-            display: "flex",
-            justifyContent: "start",
-            alignItems: "center",
-          }}
-        >
-          <img
-            src={require("../../assets/images/feed-7.jpg")}
-            style={{
-              width: "50px",
-              height: "50px",
-              marginRight: "10px",
-              borderRadius: "5px",
-            }}
-          />
-          <Typography>Group 2</Typography>
-        </Button>
+        <StackItemStyle elevation={0}>
+          <AvatarSmallStyle src={require("../../assets/images/feed-6.jpg")} />
+          <Typography variant="body2">Group 1</Typography>
+        </StackItemStyle>
+        <StackItemStyle elevation={0}>
+          <AvatarSmallStyle src={require("../../assets/images/feed-7.jpg")} />
+          <Typography variant="body2">Group 2</Typography>
+        </StackItemStyle>
       </Stack>
     </Box>
   );

@@ -19,7 +19,7 @@ const theme = createTheme({
           "--TextField-brandBorderHoverColor": "#B2BAC2",
           "--TextField-brandBorderFocusedColor": "#6F7E8C",
           "& label.Mui-focused": {
-            color: "#f2f",
+            color: "#216fdb",
           },
         },
       },
@@ -75,37 +75,49 @@ const theme = createTheme({
     //   },
     // },
   },
-  // palette: {
-  //   primary: {
-  //     // Purple and green play nicely together.
-  //     main: "#fffd00",
-  //   },
-  //   secondary: {
-  //     // This is green.A700 as hex.
-  //     main: "#11cb5f",
-  //   },
-  // },
+  palette: {
+    primary: {
+      // Purple and green play nicely together.
+      main: "#216fdb",
+    },
+    secondary: {
+      // This is green.A700 as hex.
+      main: "#11cb5f",
+    },
+  },
   typography: {
+    h5: {
+      color: "#050505",
+      fontSize: "24px",
+      fontWeight: "600",
+    },
+    h6: {
+      color: "#050505",
+      fontSize: "20px",
+      fontWeight: "500",
+    },
     body1: {
-      color: "#000",
+      color: "#050505",
+      fontSize: "18px",
     },
     body2: {
       color: "#050505",
+      fontSize: "16px",
+    },
+    subtitle1: {
+      color: "#656565",
+      fontSize: "14px",
     },
     subtitle2: {
       color: "#b2b2b2",
-    },
-    h1: {
-      color: "white",
-    },
-    h5: {
-      color: "white",
+      fontSize: "12px",
     },
     button: {
-      color: "white",
+      color: "#FF8A65",
     },
   },
 });
+
 function App() {
   return (
     <ThemeProvider theme={theme}>

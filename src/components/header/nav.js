@@ -1,14 +1,9 @@
 import React from "react";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import CoPresentIcon from "@mui/icons-material/CoPresent";
-import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import ChatIcon from "@mui/icons-material/Chat";
-import Box from "@mui/material/Box";
+import { Box, Badge, Tooltip, Menu, MenuItem, Divider } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import Tooltip from "@mui/material/Tooltip";
 import { NavLink } from "react-router-dom";
-import { Home2 } from "iconsax-react";
+import NotificationHeader from "./notiheader";
+import { Home2, NoteFavorite, Messages, Personalcard } from "iconsax-react";
 
 const Nav = () => {
   const navLinkStyle = ({ isActive }) => ({
@@ -36,33 +31,29 @@ const Nav = () => {
     >
       <NavLink to="/" className="nav-link" style={navLinkStyle}>
         <Tooltip title="Home Page">
-          {/* <HomeOutlinedIcon /> */}
-          <Home2 size="32" color="#FF8A65" />
+          <Home2 size="24" />
         </Tooltip>
       </NavLink>
 
       <NavLink to="/wall" className="nav-link" style={navLinkStyle}>
         <Tooltip title="My Wall">
-          <CoPresentIcon />
+          <Personalcard size="24" />
         </Tooltip>
       </NavLink>
 
-      <NavLink to="/notifications" className="nav-link" style={navLinkStyle}>
-        <Tooltip title="Notifications">
-          <NotificationsNoneOutlinedIcon />
-        </Tooltip>
-      </NavLink>
       <NavLink to="/messages" className="nav-link" style={navLinkStyle}>
         <Tooltip title="messages">
-          <ChatIcon />
+          <Messages size="24" />
         </Tooltip>
       </NavLink>
 
       <NavLink to="/favorites-list" className="nav-link" style={navLinkStyle}>
         <Tooltip title="Favorites List">
-          <FavoriteBorderOutlinedIcon />
+          <NoteFavorite size="24" />
         </Tooltip>
       </NavLink>
+      <Divider orientation="vertical" variant="middle" flexItem />
+      <NotificationHeader />
     </Box>
   );
 };

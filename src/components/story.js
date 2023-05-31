@@ -98,6 +98,7 @@ const Story = () => {
           <Typography
             sx={{
               color: "#e7f3ff",
+              background: "rgba(255,255,255,0.5)",
             }}
           >
             {item.name}
