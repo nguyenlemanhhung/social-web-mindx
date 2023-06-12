@@ -1,50 +1,23 @@
 import React from "react";
+import { Button } from "@mui/material";
 
-const ButtonSocial = () => {
+const ButtonSocial = ({ bgColor, bgColorHover, icon, text }) => {
   return (
     <Button
+      // onClick={onClick}
       variant="contained"
       fullWidth
       sx={{
-        padding: "10px 0",
-        mt: 2,
-        backgroundColor: "#dd4b39",
         position: "relative",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+        padding: "10px 0",
+        backgroundColor: `${bgColor}`,
         "&:hover": {
-          backgroundColor: "#902012",
+          backgroundColor: `${bgColorHover}`,
         },
       }}
+      startIcon={<icon size="32" color="#FFF" variant="Outline" />}
     >
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          padding: "0 10px",
-          position: "absolute",
-          left: "0",
-          top: "0",
-          height: "100%",
-          width: "auto",
-          backgroundColor: "#902012",
-        }}
-      >
-        <img
-          src={require("../../assets/icons/google.png")}
-          style={{
-            left: "0",
-            height: "50%",
-            width: "auto",
-            color: "#fff",
-          }}
-        />
-      </Box>
-      <Typography sx={{ fontWeight: "700", fontSize: "14px" }}>
-        Logn In with Google
-      </Typography>
+      {text}
     </Button>
   );
 };

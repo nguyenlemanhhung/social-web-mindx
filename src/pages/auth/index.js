@@ -1,15 +1,32 @@
 import * as React from "react";
 import PropTypes from "prop-types";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
+import { Tabs, Tab, Typography, Box, Container } from "@mui/material";
 import SignInForm from "./signin";
 import SignUpForm from "./signup";
-import bgAuth from "../../assets/images/89125.jpg";
+import bgAuth from "../../assets/images/bg-auth-1.jpg";
+import { styled } from "@mui/material/styles";
 
+const TabCustomStyle = styled(Tab)({
+  "&::before": {
+    content: '""',
+    position: "absolute",
+    bottom: "0",
+    left: "0",
+    width: "0%",
+    height: "100%",
+    background: "linear-gradient(112.14deg, #3461FF 1.15%, #9848FF 73.09%)",
+    transition: "all .3s",
+    zIndex: "-1",
+  },
+
+  "&.Mui-selected": {
+    color: "#FFFF",
+
+    "&::before": {
+      width: "100%",
+    },
+  },
+});
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -68,9 +85,9 @@ export default function Auth() {
         maxWidth="sm"
         sx={{
           height: "auto",
-          backgroundColor: "rgba(255, 255, 255, 0.15)",
+          backgroundColor: "rgba(255, 255, 255, 0.05)",
           backdropFilter:
-            "blur(10px) saturate(100%) contrast(45%) brightness(130%)",
+            "blur(5px) saturate(100%) contrast(45%) brightness(130%)",
           borderRadius: "20px",
           padding: "20px !important",
         }}
@@ -78,8 +95,8 @@ export default function Auth() {
         <Box sx={{ width: "100%" }}>
           <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 4 }}>
             <Tabs value={value} onChange={handleChange} variant="fullWidth">
-              <Tab label="Đăng nhập" {...a11yProps(0)} />
-              <Tab label="Đăng ký" {...a11yProps(1)} />
+              <TabCustomStyle label="Đăng nhập" {...a11yProps(0)} />
+              <TabCustomStyle label="Đăng ký" {...a11yProps(1)} />
             </Tabs>
           </Box>
           <TabPanel value={value} index={0}>

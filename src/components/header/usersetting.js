@@ -7,9 +7,12 @@ import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import SwitchMode from "./switch-mode";
-import LogoutIcon from "@mui/icons-material/Logout";
+import { LoginCurve } from "iconsax-react";
+import useAuth from "../../hooks/useAuth";
 
 const UserSetting = () => {
+  const { user } = useAuth();
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -38,10 +41,13 @@ const UserSetting = () => {
         >
           <img
             style={{ width: "40px", borderRadius: "50%", marginRight: "5px" }}
-            src={require("../../assets/images/profile-1.jpg")}
+            src={
+              user && user.avatar
+                ? user.avatar
+                : require("../../assets/images/avatar.webp")
+            }
           />
-          Evgen Ledo
-          {/* <ArrowDropDownIcon sx={{ color: "#fff" }} /> */}
+          {user && user.username}
         </Button>
       </Tooltip>
       <Menu
@@ -60,12 +66,20 @@ const UserSetting = () => {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        <MenuItem>
-          <LogoutIcon />
-          <Typography textAlign="center">Log Out</Typography>
-        </MenuItem>
-
         <SwitchMode />
+
+        <MenuItem>
+          <LoginCurve size="24" color="#FF8A65" />
+          <Typography
+            variant="body2"
+            sx={{
+              marginLeft: "10px",
+              textAlign: "center",
+            }}
+          >
+            Log Out
+          </Typography>
+        </MenuItem>
       </Menu>
     </CardStyle>
   );

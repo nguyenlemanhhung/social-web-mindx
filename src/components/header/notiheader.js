@@ -6,6 +6,7 @@ import {
   MenuItem,
   Typography,
   Badge,
+  Divider,
 } from "@mui/material";
 import { Notification } from "iconsax-react";
 
@@ -105,8 +106,10 @@ const NotificationHeader = () => {
           },
         }}
       >
-        <Typography variant="h5">Thông báo</Typography>
-
+        <Box>
+          <Typography variant="h5">Thông báo</Typography>
+        </Box>
+        <Divider sx={{ margin: "10px 0" }} />
         {notiList.map((item, idx) => (
           <MenuItem
             key={idx}

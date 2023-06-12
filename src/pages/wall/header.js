@@ -1,19 +1,20 @@
 import React from "react";
-import { Box, Container, IconButton, Typography } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import bgBanner from "../../assets/images/banner.jpeg";
+import { Box, Typography } from "@mui/material";
+import NoAvatar from "../../assets/images/avatar.webp";
+import useAuth from "../../hooks/useAuth";
 
 const HeaderWall = () => {
+  const { user, metadata } = useAuth();
   return (
     <Box>
       <img
         src={require("../../assets/images/banner.jpeg")}
+        alt="banner-header"
         style={{
           position: "relative",
           width: "100%",
           height: "500px",
           borderRadius: "10px",
-          // ratio: "16:9",
         }}
       />
       <Box
@@ -32,7 +33,8 @@ const HeaderWall = () => {
             border: "10px solid #f8f8f8",
             marginRight: "10px",
           }}
-          src={require("../../assets/images/profile-1.jpg")}
+          src={user.avatar ? user.avatar : NoAvatar}
+          alt="avatar-wall"
         />
         <Box>
           <Typography
@@ -41,9 +43,9 @@ const HeaderWall = () => {
               margin: "20px 0 5px",
             }}
           >
-            Evgen Ledo
+            {user.username}
           </Typography>
-          <Typography variant="subtitle2">@Evgen Ledo</Typography>
+          <Typography variant="subtitle2">{user.email}</Typography>
         </Box>
 
         <Box
@@ -52,12 +54,12 @@ const HeaderWall = () => {
             margin: "0 10px 0 30px",
           }}
         >
-          <Typography>550</Typography>
-          <Typography variant="subtitle2">Following</Typography>
+          <Typography>{metadata.following_count}</Typography>
+          <Typography variant="subtitle2">Người theo dõi</Typography>
         </Box>
         <Box sx={{ textAlign: "center" }}>
-          <Typography>150</Typography>
-          <Typography variant="subtitle2">Followers</Typography>
+          <Typography>{metadata.post_count}</Typography>
+          <Typography variant="subtitle2">Bài viết</Typography>
         </Box>
       </Box>
     </Box>

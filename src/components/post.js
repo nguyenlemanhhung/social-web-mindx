@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import AvataPostStyle from "./AvataPostStyle";
 
-const Post = () => {
+const Post = ({ avatar, username, postContent, postImage }) => {
   return (
     <CardStyle sx={{ marginTop: "20px" }}>
       <Box
@@ -15,25 +15,17 @@ const Post = () => {
           marginBottom: "15px",
         }}
       >
-        <AvataPostStyle src={require("../assets/images/profile-10.jpg")} />
-        <Box>
-          <Typography variant="subtitle2">@Muhaderhh</Typography>
-          <Typography variant="body1">Mudreh Kumbirai</Typography>
-        </Box>
+        <AvataPostStyle src={avatar} />
+        <Typography variant="body1">{username}</Typography>
       </Box>
-      <Typography variant="body2">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-        blanditiis tenetur unde suscipit, quam beatae rerum inventore
-        consectetur, neque doloribus, cupiditate numquam dignissimos laborum
-        fugiat deleniti? Eum quasi quidem quibusdam.
-      </Typography>
+      <Typography variant="body2">{postContent}</Typography>
       <img
         style={{
           width: "100%",
           marginTop: "10px",
           borderRadius: "20px",
         }}
-        src={require("../assets/images/feed-2.jpg")}
+        src={postImage}
       />
       <PostAction />
     </CardStyle>

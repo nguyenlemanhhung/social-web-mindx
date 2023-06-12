@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Container, IconButton, Typography } from "@mui/material";
+import { Box, Container } from "@mui/material";
 
 import HeaderWall from "./header";
 import BodyWall from "./body";

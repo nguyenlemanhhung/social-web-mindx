@@ -1,5 +1,9 @@
 import React, { useCallback, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { signUp } from "../../services/api";
+import useAuth from "../../hooks/useAuth";
+import ButtonAuthStyle from "../../components/ButtonAuthStyle";
+import ButtonSocial from "../../components/ButtonSocial";
 import {
   Box,
   IconButton,
@@ -8,11 +12,8 @@ import {
   Button,
   Divider,
   Typography,
+  Stack,
 } from "@mui/material";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import PersonIcon from "@mui/icons-material/Person";
-import LockIcon from "@mui/icons-material/Lock";
 import {
   Facebook,
   Google,
@@ -24,16 +25,17 @@ import {
 } from "iconsax-react";
 
 const SignUpForm = () => {
-  const [formData, setFormData] = useState({
+  const { signup } = useAuth();
+  const navigate = useNavigate();
+  const [formDataSignUp, setFormDataSignUp] = useState({
     username: "",
     email: "",
     password: "",
   });
-  console.log("formData", formData);
 
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormDataSignUp({ ...formDataSignUp, [name]: value });
   };
 
   const [showPassword, setShowPassword] = React.useState(false);
@@ -49,164 +51,139 @@ const SignUpForm = () => {
 
   const handleSignUp = async () => {
     try {
-      const response = await signUp(formData);
-      console.log("response:", response);
+      await signup(
+        formDataSignUp.username,
+        formDataSignUp.email,
+        formDataSignUp.password
+      );
+
+      console.log("dang thanh cong");
     } catch (error) {
       console.error(error);
     }
   };
   return (
     <Box>
-      <TextField
+      <Stack
+        spacing={3}
         sx={{
-          mb: 3,
-        }}
-        variant="outlined"
-        fullWidth
-        label="Tên đăng nhập"
-        id="signin-username"
-        name="username"
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <User color="#b2b2b2" variant="Bold" size="16" />
-            </InputAdornment>
-          ),
-        }}
-        onChange={(e) => handleChangeInput(e)}
-      />
-      <TextField
-        sx={{
-          mb: 3,
-        }}
-        variant="outlined"
-        fullWidth
-        label="Email"
-        id="signin-email"
-        name="email"
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <Sms color="#b2b2b2" variant="Bold" size="16" />
-            </InputAdornment>
-          ),
-        }}
-        onChange={(e) => handleChangeInput(e)}
-      />
-      <TextField
-        sx={{
-          mb: 3,
-        }}
-        variant="outlined"
-        fullWidth
-        type={showPassword ? "text" : "password"}
-        label="Mật khẩu"
-        id="signin-password"
-        name="password"
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <Lock1 color="#b2b2b2" variant="Bold" size="16" />
-            </InputAdornment>
-          ),
-          endAdornment: (
-            <InputAdornment position="start">
-              <IconButton
-                size="small"
-                aria-label="toggle password visibility"
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-              >
-                {showPassword ? (
-                  <EyeSlash color="#b2b2b2" size="16" variant="Bold" />
-                ) : (
-                  <Eye color="#b2b2b2" size="16" variant="Bold" />
-                )}
-              </IconButton>
-            </InputAdornment>
-          ),
-        }}
-        onChange={(e) => handleChangeInput(e)}
-      />
-      <TextField
-        sx={{
-          mb: 3,
-        }}
-        variant="outlined"
-        fullWidth
-        type={showPasswordConfirm ? "text" : "password"}
-        label="Xác thực mật khẩu"
-        id="signin-password-confirm"
-        name="passwordConfirm"
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <Lock1 color="#b2b2b2" variant="Bold" size="16" />
-            </InputAdornment>
-          ),
-          endAdornment: (
-            <InputAdornment position="start">
-              <IconButton
-                size="small"
-                aria-label="toggle password visibility"
-                onClick={handleClickShowPasswordConfirm}
-                onMouseDown={handleMouseDownPassword}
-              ></IconButton>
-            </InputAdornment>
-          ),
-        }}
-        onChange={(e) => handleChangeInput(e)}
-      />
-
-      <Button
-        onClick={handleSignUp}
-        fullWidth
-        sx={{
-          borderRadius: "50px",
-          mt: 3,
-          padding: "10px",
-          color: "#216fdb",
-          border: "1px solid #216fdb",
-          "&:hover": {
-            background:
-              "linear-gradient(112.14deg, #3461FF 1.15%, #9848FF 73.09%)",
-            color: "#fff",
-          },
+          marginBottom: "30px",
         }}
       >
+        <TextField
+          variant="outlined"
+          fullWidth
+          label="Tên đăng nhập"
+          id="signin-username"
+          name="username"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <User color="#b2b2b2" variant="Bold" size="16" />
+              </InputAdornment>
+            ),
+          }}
+          onChange={(e) => handleChangeInput(e)}
+        />
+        <TextField
+          variant="outlined"
+          fullWidth
+          label="Email"
+          id="signin-email"
+          name="email"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Sms color="#b2b2b2" variant="Bold" size="16" />
+              </InputAdornment>
+            ),
+          }}
+          onChange={(e) => handleChangeInput(e)}
+        />
+        <TextField
+          variant="outlined"
+          fullWidth
+          type={showPassword ? "text" : "password"}
+          label="Mật khẩu"
+          id="signin-password"
+          name="password"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Lock1 color="#b2b2b2" variant="Bold" size="16" />
+              </InputAdornment>
+            ),
+            endAdornment: (
+              <InputAdornment position="start">
+                <IconButton
+                  size="small"
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                >
+                  {showPassword ? (
+                    <EyeSlash color="#b2b2b2" size="16" variant="Bold" />
+                  ) : (
+                    <Eye color="#b2b2b2" size="16" variant="Bold" />
+                  )}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+          onChange={(e) => handleChangeInput(e)}
+        />
+        <TextField
+          sx={{
+            mb: 3,
+          }}
+          variant="outlined"
+          fullWidth
+          type={showPasswordConfirm ? "text" : "password"}
+          label="Xác thực mật khẩu"
+          id="signin-password-confirm"
+          name="passwordConfirm"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Lock1 color="#b2b2b2" variant="Bold" size="16" />
+              </InputAdornment>
+            ),
+            endAdornment: (
+              <InputAdornment position="start">
+                <IconButton
+                  size="small"
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPasswordConfirm}
+                  onMouseDown={handleMouseDownPassword}
+                ></IconButton>
+              </InputAdornment>
+            ),
+          }}
+          onChange={(e) => handleChangeInput(e)}
+        />
+      </Stack>
+      <ButtonAuthStyle onClick={handleSignUp} fullWidth>
         Đăng ký
-      </Button>
+      </ButtonAuthStyle>
 
       <Divider sx={{ mt: 3, mb: 2 }}>
         <Typography variant="subtitle1">Or</Typography>
       </Divider>
+      <Stack spacing={2}>
+        <ButtonSocial
+          bgColor={"#2c58c3"}
+          bgColorHover={"#385499"}
+          icon={Facebook}
+          text={"Đăng ký bằng Facebook"}
+        />
 
-      <Button
-        variant="contained"
-        fullWidth
-        sx={{
-          position: "relative",
-          padding: "10px 0",
-          mt: 2,
-          border: "#3b5998",
-        }}
-        startIcon={<Facebook size="32" color="#FF8A65" variant="Outline" />}
-      >
-        Đăng ký bằng Facebook
-      </Button>
-      <Button
-        variant="contained"
-        fullWidth
-        sx={{
-          position: "relative",
-          padding: "10px 0",
-          mt: 2,
-          backgroundColor: "#3b5998",
-        }}
-        startIcon={<Google size="32" color="#FF8A65" variant="Outline" />}
-      >
-        Đăng nhập bằng Google
-      </Button>
+        <ButtonSocial
+          bgColor={"#ef4a37"}
+          bgColorHover={"#cf4232"}
+          icon={Facebook}
+          text={"Đăng ký bằng Google"}
+        />
+      </Stack>
     </Box>
   );
 };

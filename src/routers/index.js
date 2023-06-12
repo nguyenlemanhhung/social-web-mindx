@@ -5,7 +5,7 @@ import Layout from "../components/layout";
 import { Routes, Route } from "react-router-dom";
 import Auth from "../pages/auth";
 import WallPage from "../pages/wall";
-import FavoritesList from "../pages/favorites";
+import FavoritePage from "../pages/favorite";
 import Profile from "../pages/profile";
 import EditProfile from "../pages/profile/edit";
 import MessagePage from "../pages/message";
@@ -17,7 +17,7 @@ function Router() {
         <Route index element={<HomePage />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/wall" element={<WallPage />}></Route>
-        <Route path="/favorites-list" element={<FavoritesList />}></Route>
+        <Route path="/favorite" element={<FavoritePage />}></Route>
         <Route path="/messages" element={<MessagePage />}></Route>
         <Route path="/profile" element={<Profile />}>
           <Route path="/profile/edit" element={<EditProfile />}></Route>

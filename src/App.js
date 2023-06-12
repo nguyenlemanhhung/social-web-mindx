@@ -1,7 +1,7 @@
 import "./App.css";
 import Router from "./routers";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { outlinedInputClasses } from "@mui/material/OutlinedInput";
+import { AuthContext, AuthProvider } from "./context/AuthContext";
 
 const theme = createTheme({
   components: {
@@ -24,21 +24,23 @@ const theme = createTheme({
         },
       },
     },
-    // MuiOutlinedInput: {
-    //   styleOverrides: {
-    //     notchedOutline: {
-    //       borderColor: "var(--TextField-brandBorderColor)",
-    //     },
-    //     root: {
-    //       [`&:hover .${outlinedInputClasses.notchedOutline}`]: {
-    //         borderColor: "var(--TextField-brandBorderHoverColor)",
-    //       },
-    //       [`&.Mui-focused .${outlinedInputClasses.notchedOutline}`]: {
-    //         borderColor: "var(--TextField-brandBorderFocusedColor)",
-    //       },
-    //     },
-    //   },
-    // },
+    MuiStandardInput: {
+      styleOverrides: {
+        root: {
+          "&:before, &:after": {
+            borderBottom: "none",
+          },
+          "&:hover:not(.Mui-disabled, .Mui-error):before": {
+            borderBottom: "none",
+          },
+          "&.Mui-focused:after": {
+            borderBottom: "none",
+          },
+
+          borderRadius: "10px",
+        },
+      },
+    },
     MuiFilledInput: {
       styleOverrides: {
         root: {
@@ -59,21 +61,6 @@ const theme = createTheme({
         },
       },
     },
-    // MuiInput: {
-    //   styleOverrides: {
-    //     root: {
-    //       "&:before": {
-    //         borderBottom: "2px solid var(--TextField-brandBorderColor)",
-    //       },
-    //       "&:hover:not(.Mui-disabled, .Mui-error):before": {
-    //         borderBottom: "2px solid var(--TextField-brandBorderHoverColor)",
-    //       },
-    //       "&.Mui-focused:after": {
-    //         borderBottom: "2px solid var(--TextField-brandBorderFocusedColor)",
-    //       },
-    //     },
-    //   },
-    // },
   },
   palette: {
     primary: {
@@ -120,9 +107,11 @@ const theme = createTheme({
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <Router />
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider theme={theme}>
+        <Router />
+      </ThemeProvider>
+    </AuthProvider>
   );
 }
 

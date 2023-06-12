@@ -1,47 +1,95 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { Typography, Box, Button, IconButton } from "@mui/material";
+import {
+  Typography,
+  Box,
+  Button,
+  IconButton,
+  Stack,
+  InputAdornment,
+  InputLabel,
+  TextField,
+} from "@mui/material";
+import { styled } from "@mui/material/styles";
+import { handleUploadToStorage } from "../../utils/uploadFile";
+import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import { GalleryEdit, Edit2 } from "iconsax-react";
+import useAuth from "../../hooks/useAuth";
+import { wait } from "@testing-library/user-event/dist/utils";
+import { updateProfileApi } from "../../services/api";
 
-const EditProfile = () => {
-  const [open, setOpen] = React.useState(false);
+const EditItem = styled(Box)({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  padding: "10px",
+  backgroundColor: "rgba(25, 118, 210, 0.1)",
+});
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+const EditProfile = ({ handleClose, open }) => {
+  const { user } = useAuth();
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const [editData, setEditData] = useState({
+    avatar: "",
+    banner: "",
+    username: "",
+    phonenumber: "",
+    signature: "",
+  });
+  const [avatarImage, setAvatarImage] = useState();
+  const [bannerImage, setBannerImage] = useState();
 
-  const descriptionElementRef = React.useRef(null);
-  React.useEffect(() => {
-    if (open) {
-      const { current: descriptionElement } = descriptionElementRef;
-      if (descriptionElement !== null) {
-        descriptionElement.focus();
-      }
+  const handleAddData = async () => {
+    try {
+      const data = {
+        ...editData,
+        avatar: avatarImage ? await handleUploadToStorage(avatarImage) : "",
+        banner: bannerImage ? await handleUploadToStorage(bannerImage) : "",
+      };
+      console.log("data:", data);
+      console.log("editdata:", editData);
+
+      await updateProfileApi(data);
+      handleClose();
+
+      alert("cập  nhật thành công");
+    } catch (error) {
+      console.log(error);
     }
-  }, [open]);
+  };
+
+  useEffect(() => {
+    if (user) {
+      setEditData({
+        ...editData,
+        avatar: user.avatar,
+        banner: user.banner,
+        username: user.username,
+        phonenumber: user.phonenumber,
+        signature: user.signature,
+      });
+    }
+  }, [setEditData, user]);
+
+  const handleChangeInput = (e) => {
+    const { name, value } = e.target;
+    setEditData({ ...editData, [name]: value });
+  };
 
   return (
-    <div>
-      <Button onClick={handleClickOpen}>scroll=paper</Button>
-
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        scroll="paper"
-        aria-labelledby="scroll-dialog-title"
-        aria-describedby="scroll-dialog-description"
+    <Dialog open={open} onClose={handleClose} scroll="paper">
+      <DialogTitle
+        sx={{
+          backgroundColor: "#E7F3FF",
+        }}
       >
-        <DialogTitle id="scroll-dialog-title">
-          Chỉnh sửa thông tin cá nhân
-        </DialogTitle>
-        <DialogContent dividers="paper">
+        Chỉnh sửa thông tin cá nhân
+      </DialogTitle>
+      <DialogContent dividers>
+        <Stack spacing={2}>
           <Box
             sx={{
               marginBottom: "10px",
@@ -63,12 +111,25 @@ const EditProfile = () => {
                 startIcon={<GalleryEdit color="#FF8A65" variant="Bold" />}
               >
                 Chỉnh sửa
-                <input hidden accept="image/*" multiple type="file" />
+                <input
+                  name="avatar"
+                  hidden
+                  accept="image/*"
+                  multiple
+                  type="file"
+                  onChange={(e) => setAvatarImage(e.target.files[0])}
+                />
               </Button>
             </Box>
 
             <img
-              src={require("../../assets/images/profile-1.jpg")}
+              src={
+                avatarImage
+                  ? URL.createObjectURL(avatarImage)
+                  : editData && editData.avatar
+                  ? editData.avatar
+                  : require("../../assets/images/avatar.webp")
+              }
               style={{
                 width: "100px",
                 height: "100px",
@@ -97,11 +158,23 @@ const EditProfile = () => {
                 startIcon={<GalleryEdit color="#FF8A65" variant="Bold" />}
               >
                 Chỉnh sửa
-                <input hidden accept="image/*" multiple type="file" />
+                <input
+                  hidden
+                  accept="image/*"
+                  multiple
+                  type="file"
+                  onChange={(e) => setBannerImage(e.target.files[0])}
+                />
               </Button>
             </Box>
             <img
-              src={require("../../assets/images/banner.jpeg")}
+              src={
+                bannerImage
+                  ? URL.createObjectURL(bannerImage)
+                  : editData && editData.banner
+                  ? editData.banner
+                  : require("../../assets/images/banner.jpeg")
+              }
               style={{
                 width: "100%",
                 borderRadius: "10px",
@@ -109,87 +182,80 @@ const EditProfile = () => {
             />
           </Box>
 
-          <Box
-            sx={{
-              backgroundColor: "#E7F3FF",
-              padding: "10px",
+          <TextField
+            onChange={(e) => handleChangeInput(e)}
+            value={editData.username}
+            variant="outlined"
+            fullWidth
+            type="text"
+            label="Tên đăng nhập"
+            id="edit-username"
+            name="username"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="start">
+                  <IconButton size="small">
+                    <Edit2 color="#FF8A65" variant="Bold" size="16" />
+                  </IconButton>
+                </InputAdornment>
+              ),
             }}
-          >
-            <Box
-              sx={{
-                marginBottom: "10px",
-              }}
-            >
-              <Typography variant="body2">Tên đăng nhập</Typography>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  padding: "10px",
-                  backgroundColor: "rgba(25, 118, 210, 0.1)",
-                }}
-              >
-                <Typography variant="body2">Evgen Ledo</Typography>
-                <IconButton>
-                  <Edit2 color="#FF8A65" variant="Bold" size="16" />
-                </IconButton>
-              </Box>
-            </Box>
+          />
+          <TextField
+            onChange={(e) => handleChangeInput(e)}
+            value={editData.phonenumber}
+            variant="outlined"
+            fullWidth
+            type="text"
+            label="Số điện thoại"
+            id="edit-phonenumber"
+            name="phonenumber"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="start">
+                  <IconButton
+                    size="small"
 
-            <Box
-              sx={{
-                marginBottom: "10px",
-              }}
-            >
-              <Typography variant="body2">Email</Typography>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  padding: "10px",
-                  backgroundColor: "rgba(25, 118, 210, 0.1)",
-                }}
-              >
-                <Typography variant="body2">EvgenLedo@gmail.com</Typography>
-                <IconButton>
-                  <Edit2 color="#FF8A65" variant="Bold" size="16" />
-                </IconButton>
-              </Box>
-            </Box>
-
-            <Box
-              sx={{
-                marginBottom: "10px",
-              }}
-            >
-              <Typography variant="body2">Email</Typography>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  padding: "10px",
-                  backgroundColor: "rgba(25, 118, 210, 0.1)",
-                }}
-              >
-                <Typography variant="body2">EvgenLedo@gmail.com</Typography>
-                <IconButton>
-                  <Edit2 color="#FF8A65" variant="Bold" size="16" />
-                </IconButton>
-              </Box>
-            </Box>
-          </Box>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Huỷ</Button>
-          <Button variant="contained" onClick={handleClose}>
-            Lưu thay đổi
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
+                    // onClick={handleClickShowPassword}
+                  >
+                    <Edit2 color="#FF8A65" variant="Bold" size="16" />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+          <TextField
+            onChange={(e) => handleChangeInput(e)}
+            value={editData.signature}
+            variant="outlined"
+            fullWidth
+            type="text"
+            label="Chữ ký"
+            id="edit-signature"
+            name="signature"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="start">
+                  <IconButton size="small">
+                    <Edit2 color="#FF8A65" variant="Bold" size="16" />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Stack>
+      </DialogContent>
+      <DialogActions
+        sx={{
+          backgroundColor: "#E7F3FF",
+        }}
+      >
+        <Button onClick={handleClose}>Huỷ</Button>
+        <Button variant="contained" onClick={handleAddData}>
+          Lưu thay đổi
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 };
 export default EditProfile;

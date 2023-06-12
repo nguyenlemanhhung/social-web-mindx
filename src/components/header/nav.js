@@ -6,10 +6,33 @@ import NotificationHeader from "./notiheader";
 import { Home2, NoteFavorite, Messages, Personalcard } from "iconsax-react";
 
 const Nav = () => {
-  const navLinkStyle = ({ isActive }) => ({
+  const NavLinkStyle = styled(NavLink)({
+    color: "#b2b2b2",
     padding: "5px 30px",
     borderRadius: "20px",
-    color: isActive ? "#fff" : "#b2b2b2",
+    position: "relative",
+    overflow: "hidden",
+    "&::before": {
+      content: '""',
+      position: "absolute",
+      bottom: "0",
+      left: "0",
+      width: "0%",
+      height: "100%",
+      background: "linear-gradient(112.14deg, #3461FF 1.15%, #9848FF 73.09%)",
+      transition: "all .5s",
+      zIndex: "-1",
+    },
+    "&:hover": {
+      color: "#fff",
+      "&::before": {
+        width: "100%",
+      },
+    },
+  });
+
+  const navLinkStyle = ({ isActive }) => ({
+    color: "#fff",
     background: isActive
       ? "linear-gradient(112.14deg, #3461FF 1.15%, #9848FF 73.09%)"
       : "",
@@ -20,7 +43,7 @@ const Nav = () => {
       sx={{
         backgroundColor: "rgba(25, 118, 210, 0.1)",
         borderRadius: "20px",
-        padding: "10px",
+        padding: "5px 10px",
         display: "flex",
         flexDirection: "row",
         justifyContent: "center",
@@ -29,29 +52,30 @@ const Nav = () => {
         boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset",
       }}
     >
-      <NavLink to="/" className="nav-link" style={navLinkStyle}>
+      <NavLinkStyle to="/" className="nav-link" style={navLinkStyle}>
         <Tooltip title="Home Page">
           <Home2 size="24" />
         </Tooltip>
-      </NavLink>
+      </NavLinkStyle>
 
-      <NavLink to="/wall" className="nav-link" style={navLinkStyle}>
+      <NavLinkStyle to="/wall" className="nav-link" style={navLinkStyle}>
         <Tooltip title="My Wall">
           <Personalcard size="24" />
         </Tooltip>
-      </NavLink>
+      </NavLinkStyle>
 
-      <NavLink to="/messages" className="nav-link" style={navLinkStyle}>
+      <NavLinkStyle to="/messages" className="nav-link" style={navLinkStyle}>
         <Tooltip title="messages">
           <Messages size="24" />
         </Tooltip>
-      </NavLink>
+      </NavLinkStyle>
 
-      <NavLink to="/favorites-list" className="nav-link" style={navLinkStyle}>
-        <Tooltip title="Favorites List">
+      <NavLinkStyle to="/favorite" className="nav-link" style={navLinkStyle}>
+        <Tooltip title="Favorites">
           <NoteFavorite size="24" />
         </Tooltip>
-      </NavLink>
+      </NavLinkStyle>
+
       <Divider orientation="vertical" variant="middle" flexItem />
       <NotificationHeader />
     </Box>

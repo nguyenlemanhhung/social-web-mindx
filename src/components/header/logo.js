@@ -1,9 +1,12 @@
 import React from "react";
-import Box from "@mui/material/Box";
+import Button from "@mui/material/Box";
+import { Link } from "react-router-dom";
 
 const Logo = () => {
   return (
-    <Box
+    <Button
+      component={Link}
+      to="/"
       sx={{
         display: "flex",
         alignItems: "center",
@@ -13,7 +16,7 @@ const Logo = () => {
       }}
     >
       <img src={require("../../assets/icons/logo.png")} />
-    </Box>
+    </Button>
   );
 };
 export default Logo;

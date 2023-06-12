@@ -17,12 +17,24 @@ const IconButtonAction = styled(IconButton)({
 });
 
 const PostAction = () => {
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpenComment = () => {
+    setOpen(true);
+  };
+
+  const handleCloseComment = () => {
+    setOpen(false);
+  };
   return (
     <Stack direction="row" spacing={3} maxWidth="md" mt={2}>
       <IconButtonAction>
         <FavoriteBorderIcon />
       </IconButtonAction>
-      <PostComment />
+      <PostComment open={open} handleCloseComment={handleCloseComment} />
+      <IconButtonAction onClick={handleOpenComment}>
+        <SmsOutlinedIcon />
+      </IconButtonAction>
       <IconButtonAction>
         <ShareOutlinedIcon />
       </IconButtonAction>

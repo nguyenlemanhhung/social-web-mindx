@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import useAuth from "../../hooks/useAuth";
+import ButtonAuthStyle from "../../components/ButtonAuthStyle";
+import ButtonSocial from "../../components/ButtonSocial";
 import {
   Box,
   IconButton,
@@ -10,18 +13,24 @@ import {
   Divider,
   FormControlLabel,
   Checkbox,
+  Stack,
 } from "@mui/material";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import PersonIcon from "@mui/icons-material/Person";
-import LockIcon from "@mui/icons-material/Lock";
-import { Facebook, Google } from "iconsax-react";
+import {
+  Facebook,
+  Google,
+  EyeSlash,
+  Eye,
+  Sms,
+  Lock1,
+  Send,
+} from "iconsax-react";
 
 const SignInForm = () => {
-  const [formData, setFormData] = useState({
-    userName: "",
-    userEmail: "",
-    userPassword: "",
+  const { signin } = useAuth();
+
+  const [formDataSignIn, setFormDataSignIn] = useState({
+    email: "",
+    password: "",
   });
 
   const [showPassword, setShowPassword] = React.useState(false);
@@ -31,144 +40,131 @@ const SignInForm = () => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
+  const handleChangeInput = (e) => {
+    const { name, value } = e.target;
+    setFormDataSignIn({ ...formDataSignIn, [name]: value });
+  };
+
+  const handleSignIn = async () => {
+    try {
+      await signin(formDataSignIn.email, formDataSignIn.password);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Box>
-      <TextField
-        sx={{
-          mb: 3,
-        }}
-        variant="outlined"
-        fullWidth
-        label="Tên đăng nhập"
-        id="signin-email"
-        name="userEmail"
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <PersonIcon fontSize="small" />
-            </InputAdornment>
-          ),
-        }}
-        // onChange={(e) => handleChangeInput(e)}
-      />
-      <TextField
-        sx={{
-          mb: 3,
-        }}
-        variant="outlined"
-        fullWidth
-        label="Email"
-        id="signin-email"
-        name="userEmail"
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <PersonIcon fontSize="small" />
-            </InputAdornment>
-          ),
-        }}
-        // onChange={(e) => handleChangeInput(e)}
-      />
-      <TextField
-        sx={{
-          mb: 3,
-        }}
-        variant="outlined"
-        fullWidth
-        type={showPassword ? "text" : "password"}
-        label="Mật khẩu"
-        id="signin-password"
-        name="userPassword"
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <LockIcon fontSize="small" />
-            </InputAdornment>
-          ),
-          endAdornment: (
-            <InputAdornment position="start">
-              <IconButton
-                size="small"
-                aria-label="toggle password visibility"
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-              >
-                {showPassword ? (
-                  <VisibilityOff fontSize="small" />
-                ) : (
-                  <Visibility fontSize="small" />
-                )}
-              </IconButton>
-            </InputAdornment>
-          ),
-        }}
-        // onChange={(e) => handleChangeInput(e)}
-      />
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <FormControlLabel
-          control={<Checkbox defaultChecked />}
-          label="Ghi nhớ đăng nhập"
+      <Stack spacing={3} sx={{ marginBottom: "30px" }}>
+        <TextField
+          variant="outlined"
+          fullWidth
+          label="Email"
+          id="signin-email"
+          name="email"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Sms color="#b2b2b2" variant="Bold" size="16" />
+              </InputAdornment>
+            ),
+          }}
+          onChange={(e) => handleChangeInput(e)}
         />
-        <Link href="#" underline="none">
-          {"Quên mật khẩu ?"}
-        </Link>
-      </Box>
+        <TextField
+          variant="outlined"
+          fullWidth
+          type={showPassword ? "text" : "password"}
+          label="Mật khẩu"
+          id="signin-password"
+          name="password"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Lock1 color="#b2b2b2" variant="Bold" size="16" />
+              </InputAdornment>
+            ),
+            endAdornment: (
+              <InputAdornment position="start">
+                <IconButton
+                  size="small"
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                >
+                  {showPassword ? (
+                    <EyeSlash color="#b2b2b2" size="16" variant="Bold" />
+                  ) : (
+                    <Eye color="#b2b2b2" size="16" variant="Bold" />
+                  )}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+          onChange={(e) => handleChangeInput(e)}
+        />
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <FormControlLabel
+            control={
+              <Checkbox
+                size="small"
+                sx={{
+                  color: "#3D70B2",
+                }}
+              />
+            }
+            label={
+              <Typography variant="subtitle1" style={{ color: "#2979ff" }}>
+                Ghi nhớ đăng nhập
+              </Typography>
+            }
+          />
+          <Link
+            href="#"
+            variant="subtitle1"
+            sx={{
+              color: "#3D70B2",
+              textDecoration: "none",
+              "&:hover": {
+                textDecoration: "underline",
+                color: "#2979ff",
+              },
+            }}
+          >
+            {"Quên mật khẩu ?"}
+          </Link>
+        </Box>
+      </Stack>
 
-      <Button
-        fullWidth
-        sx={{
-          borderRadius: "50px",
-          mt: 3,
-          padding: "10px",
-          color: "#216fdb",
-          border: "1px solid #216fdb",
-          "&:hover": {
-            background:
-              "linear-gradient(112.14deg, #3461FF 1.15%, #9848FF 73.09%)",
-            color: "#fff",
-          },
-        }}
-      >
+      <ButtonAuthStyle fullWidth onClick={handleSignIn}>
         Đăng nhập
-      </Button>
+      </ButtonAuthStyle>
 
       <Divider sx={{ mt: 3, mb: 2 }}>
         <Typography variant="subtitle1">Or</Typography>
       </Divider>
+      <Stack spacing={2}>
+        <ButtonSocial
+          bgColor={"#2c58c3"}
+          bgColorHover={"#385499"}
+          icon={Facebook}
+          text={"Đăng nhập bằng Facebook"}
+        />
 
-      <Button
-        variant="contained"
-        fullWidth
-        sx={{
-          position: "relative",
-          padding: "10px 0",
-          mt: 2,
-          backgroundColor: "#3b5998",
-        }}
-        startIcon={<Facebook size="32" color="#FF8A65" variant="Outline" />}
-      >
-        {/* <Facebook size="32" color="#FF8A65" variant="Outline" /> */}
-        Đăng nhập bằng Facebook
-      </Button>
-      <Button
-        variant="contained"
-        fullWidth
-        sx={{
-          position: "relative",
-          padding: "10px 0",
-          mt: 2,
-          backgroundColor: "#3b5998",
-        }}
-        startIcon={<Google size="32" color="#FF8A65" variant="Outline" />}
-      >
-        Đăng nhập bằng Google
-      </Button>
+        <ButtonSocial
+          bgColor={"#ef4a37"}
+          bgColorHover={"#cf4232"}
+          icon={Facebook}
+          text={"Đăng nhập bằng Google"}
+        />
+      </Stack>
     </Box>
   );
 };

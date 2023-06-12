@@ -1,17 +1,10 @@
 import React from "react";
-import {
-  Box,
-  Container,
-  IconButton,
-  Typography,
-  Button,
-  Grid,
-  Stack,
-} from "@mui/material";
+import { Box, Container, Typography, Button, Grid, Stack } from "@mui/material";
 import { Link } from "react-router-dom";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { styled } from "@mui/material/styles";
 import EditProfile from "./edit";
+import useAuth from "../../hooks/useAuth";
 
 const ButtonItem = styled(Button)({
   display: "flex",
@@ -20,12 +13,34 @@ const ButtonItem = styled(Button)({
   borderBottom: "1px solid #E7F3FF",
   borderRadius: "5px",
   color: "#b2b2b2",
+  textTransform: "capitalize",
   "&:hover": {
     backgroundColor: "#E7F3FF",
     color: "#222",
   },
 });
 const Profile = () => {
+  const { user } = useAuth();
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const descriptionElementRef = React.useRef(null);
+  React.useEffect(() => {
+    if (open) {
+      const { current: descriptionElement } = descriptionElementRef;
+      if (descriptionElement !== null) {
+        descriptionElement.focus();
+      }
+    }
+  }, [open]);
   return (
     <Container maxWidth="lg">
       <Box>
@@ -35,7 +50,11 @@ const Profile = () => {
           }}
         >
           <img
-            src={require("../../assets/images/banner.jpeg")}
+            src={
+              user && user.banner
+                ? user.banner
+                : require("../../assets/images/banner.jpeg")
+            }
             style={{
               width: "100%",
               height: "500px",
@@ -65,7 +84,11 @@ const Profile = () => {
                 border: "10px solid #f8f8f8",
                 marginRight: "10px",
               }}
-              src={require("../../assets/images/profile-1.jpg")}
+              src={
+                user && user.avatar
+                  ? user.avatar
+                  : require("../../assets/images/avatar.webp")
+              }
             />
           </Box>
           <Box>
@@ -75,24 +98,24 @@ const Profile = () => {
                 margin: "20px 0 5px",
               }}
             >
-              Evgen Ledo
+              {user && user.username}
             </Typography>
-            <Typography variant="subtitle2">@Evgen Ledo</Typography>
+            <Typography variant="subtitle2">{user && user.email}</Typography>
           </Box>
         </Box>
 
         <Container maxWidth="md">
           <Grid container>
             <Grid item xs={5}>
-              <Typography sx={{ mb: 3 }}>Settings</Typography>
+              <Typography sx={{ mb: 3 }}>Cài đặt </Typography>
               <Stack spacing={2}>
-                <EditProfile />
-                {/* <ButtonItem component={Link} to="/profile/edit">
-                  Edit Profile
+                <EditProfile handleClose={handleClose} open={open} />
+                <ButtonItem onClick={handleClickOpen}>
+                  Chỉnh sửa thông tin cá nhân
                   <NavigateNextIcon />
-                </ButtonItem> */}
+                </ButtonItem>
                 <ButtonItem>
-                  Account Security
+                  Bảo mật tài khoản
                   <NavigateNextIcon />
                 </ButtonItem>
                 <ButtonItem>
@@ -103,7 +126,7 @@ const Profile = () => {
             </Grid>
             <Grid item xs={2} />
             <Grid item xs={5}>
-              <Typography sx={{ mb: 3 }}>Support</Typography>
+              <Typography sx={{ mb: 3 }}>Hỗ trợ</Typography>
               <Stack spacing={2}>
                 <ButtonItem>
                   Help and Support

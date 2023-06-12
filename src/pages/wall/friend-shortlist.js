@@ -1,13 +1,6 @@
 import React from "react";
 import CardStyle from "../../components/card-style";
-import {
-  Box,
-  Container,
-  IconButton,
-  Typography,
-  Grid,
-  Link,
-} from "@mui/material";
+import { Box, Typography, Grid, Link } from "@mui/material";
 
 const listFriends = [
   {
@@ -55,7 +48,7 @@ const FriendShortList = () => {
             alignItems: "center",
           }}
         >
-          <Typography>Your Friends</Typography>
+          <Typography>Bạn bè của bạn</Typography>
           <Link
             href="#"
             underline="none"
@@ -67,17 +60,18 @@ const FriendShortList = () => {
               },
             }}
           >
-            <Typography>All</Typography>
+            <Typography>Tất cả</Typography>
           </Link>
         </Box>
         <Typography variant="subtitle2" sx={{ mb: 3 }}>
-          29 Friends
+          29 người
         </Typography>
         <Grid container spacing={2}>
           {listFriends.map((item, idx) => {
             return (
-              <Grid item xs={4}>
+              <Grid item xs={4} key={idx}>
                 <img
+                  alt="avatar-friend"
                   src={item.avatar}
                   style={{
                     width: "100%",
