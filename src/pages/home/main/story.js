@@ -1,68 +1,57 @@
 import React from "react";
-import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
+import { Box, Stack } from "@mui/material";
 import { Typography, IconButton } from "@mui/material";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import { styled } from "@mui/material/styles";
-
-const Overlay = styled(Box)({
-  backgroundColor: "rgba(255,255,255,0.3)",
-  position: "absolute",
-  bottom: "0",
-  left: "0",
-  height: "20%",
-  width: "100%",
-});
+import { ArrowRight2 } from "iconsax-react";
 
 const listStory = [
   {
-    bgImage: require("../../assets/images/story-1.jpg"),
-    avatar: require("../../assets/images/profile-10.jpg"),
+    bgImage: require("../../../assets/images/story-1.jpg"),
+    avatar: require("../../../assets/images/profile-10.jpg"),
     name: "John",
   },
   {
-    bgImage: require("../../assets/images/story-2.jpg"),
-    avatar: require("../../assets/images/profile-11.jpg"),
+    bgImage: require("../../../assets/images/story-2.jpg"),
+    avatar: require("../../../assets/images/profile-11.jpg"),
     name: "Andrew",
   },
   {
-    bgImage: require("../../assets/images/story-3.jpg"),
-    avatar: require("../../assets/images/profile-12.jpg"),
+    bgImage: require("../../../assets/images/story-3.jpg"),
+    avatar: require("../../../assets/images/profile-12.jpg"),
     name: "Rosaline",
   },
   {
-    bgImage: require("../../assets/images/story-4.jpg"),
-    avatar: require("../../assets/images/profile-13.jpg"),
+    bgImage: require("../../../assets/images/story-4.jpg"),
+    avatar: require("../../../assets/images/profile-13.jpg"),
     name: "Rosaline",
   },
   {
-    bgImage: require("../../assets/images/story-5.jpg"),
-    avatar: require("../../assets/images/profile-14.jpg"),
+    bgImage: require("../../../assets/images/story-5.jpg"),
+    avatar: require("../../../assets/images/profile-14.jpg"),
     name: "Rosaline",
   },
   {
-    bgImage: require("../../assets/images/story-6.jpg"),
-    avatar: require("../../assets/images/profile-15.jpg"),
+    bgImage: require("../../../assets/images/story-6.jpg"),
+    avatar: require("../../../assets/images/profile-15.jpg"),
     name: "Rosaline",
   },
   {
-    bgImage: require("../../assets/images/story-1.jpg"),
-    avatar: require("../../assets/images/profile-16.jpg"),
+    bgImage: require("../../../assets/images/story-1.jpg"),
+    avatar: require("../../../assets/images/profile-16.jpg"),
     name: "Rosaline",
   },
   {
-    bgImage: require("../../assets/images/story-2.jpg"),
-    avatar: require("../../assets/images/profile-17.jpg"),
+    bgImage: require("../../../assets/images/story-2.jpg"),
+    avatar: require("../../../assets/images/profile-17.jpg"),
     name: "Rosaline",
   },
   {
-    bgImage: require("../../assets/images/story-1.jpg"),
-    avatar: require("../../assets/images/profile-10.jpg"),
+    bgImage: require("../../../assets/images/story-1.jpg"),
+    avatar: require("../../../assets/images/profile-10.jpg"),
     name: "John",
   },
   {
-    bgImage: require("../../assets/images/story-2.jpg"),
-    avatar: require("../../assets/images/profile-11.jpg"),
+    bgImage: require("../../../assets/images/story-2.jpg"),
+    avatar: require("../../../assets/images/profile-11.jpg"),
     name: "Andrew",
   },
 ];
@@ -107,6 +96,7 @@ const Story = () => {
               width: "40px",
               height: "40px",
             }}
+            alt="avatar story"
           />
           <Box
             sx={{
@@ -126,19 +116,20 @@ const Story = () => {
       ))}
       <IconButton
         sx={{
-          width: "40px",
-          height: "40px",
+          width: "30px",
+          height: "30px",
           position: "sticky",
           right: "5px",
           top: "50%",
           transform: "translateY(-50%)",
-          backgroundColor: "#f8f8f8",
-          "&:hover": {
-            backgroundColor: "#e7f3ff",
-          },
+          background:
+            "linear-gradient(112.14deg, rgb(52, 97, 255) 1.15%, rgb(152, 72, 255) 73.09%)",
+          // "&:hover": {
+          //   backgroundColor: "#e7f3ff",
+          // },
         }}
       >
-        <NavigateNextIcon fontSize="small" />
+        <ArrowRight2 size="32" color="#FFF" />
       </IconButton>
     </Stack>
   );

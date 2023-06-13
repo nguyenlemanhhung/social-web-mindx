@@ -6,7 +6,12 @@ import BodyWall from "./body";
 
 const WallPage = () => {
   return (
-    <Box>
+    <Box
+      sx={{
+        height: "100%",
+        overflow: "scroll",
+      }}
+    >
       <Container maxWidth="lg">
         <HeaderWall />
         <BodyWall />

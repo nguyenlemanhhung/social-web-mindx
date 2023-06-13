@@ -20,7 +20,11 @@ const UserProfile = () => {
       }}
     >
       <img
-        src={require("../../../assets/images/banner.jpeg")}
+        src={
+          user && user.banner
+            ? user.banner
+            : require("../../../assets/images/banner.jpeg")
+        }
         style={{
           width: "100%",
           borderRadius: "10px ",
@@ -51,22 +55,6 @@ const UserProfile = () => {
             }}
             src={user.avatar ? user.avatar : NoAvatar}
           />
-          {/* <IconButton
-            sx={{
-              position: "absolute",
-              right: "-15px",
-              bottom: "10px",
-              padding: "0",
-              border: "2px solid #fff",
-              borderRadius: "10px",
-              backgroundColor: "#fff",
-              "&:hover": {
-                backgroundColor: "#f2f2f2",
-              },
-            }}
-          >
-            <GalleryEdit size="24" color="#FF8A65" variant="Bold" />
-          </IconButton> */}
         </Box>
 
         <Box sx={{ textAlign: "center" }}>

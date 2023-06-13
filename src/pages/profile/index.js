@@ -12,7 +12,7 @@ const ButtonItem = styled(Button)({
   alignItems: "center",
   borderBottom: "1px solid #E7F3FF",
   borderRadius: "5px",
-  color: "#b2b2b2",
+  color: "#656565",
   textTransform: "capitalize",
   "&:hover": {
     backgroundColor: "#E7F3FF",
@@ -100,7 +100,7 @@ const Profile = () => {
             >
               {user && user.username}
             </Typography>
-            <Typography variant="subtitle2">{user && user.email}</Typography>
+            <Typography variant="subtitle1">{user && user.email}</Typography>
           </Box>
         </Box>
 
@@ -119,7 +119,7 @@ const Profile = () => {
                   <NavigateNextIcon />
                 </ButtonItem>
                 <ButtonItem>
-                  Change Language
+                  Thay đổi ngôn ngữ
                   <NavigateNextIcon />
                 </ButtonItem>
               </Stack>

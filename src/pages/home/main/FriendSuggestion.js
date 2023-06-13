@@ -1,44 +1,52 @@
-import { Box, Stack, Typography, Paper, Button } from "@mui/material";
+import {
+  Box,
+  Stack,
+  Typography,
+  Paper,
+  Button,
+  IconButton,
+} from "@mui/material";
+import { ArrowRight2 } from "iconsax-react";
 
 const listFriendSuggestion = [
   {
-    avatar: require("../../assets/images/profile-10.jpg"),
+    avatar: require("../../../assets/images/profile-10.jpg"),
     name: "John",
   },
   {
-    avatar: require("../../assets/images/profile-11.jpg"),
+    avatar: require("../../../assets/images/profile-11.jpg"),
     name: "Andrew",
   },
   {
-    avatar: require("../../assets/images/profile-12.jpg"),
+    avatar: require("../../../assets/images/profile-12.jpg"),
     name: "Rosaline",
   },
   {
-    avatar: require("../../assets/images/profile-13.jpg"),
+    avatar: require("../../../assets/images/profile-13.jpg"),
     name: "Rosaline",
   },
   {
-    avatar: require("../../assets/images/profile-14.jpg"),
+    avatar: require("../../../assets/images/profile-14.jpg"),
     name: "Rosaline",
   },
   {
-    avatar: require("../../assets/images/profile-15.jpg"),
+    avatar: require("../../../assets/images/profile-15.jpg"),
     name: "Rosaline",
   },
   {
-    avatar: require("../../assets/images/profile-16.jpg"),
+    avatar: require("../../../assets/images/profile-16.jpg"),
     name: "Rosaline",
   },
   {
-    avatar: require("../../assets/images/profile-17.jpg"),
+    avatar: require("../../../assets/images/profile-17.jpg"),
     name: "Rosaline",
   },
   {
-    avatar: require("../../assets/images/profile-10.jpg"),
+    avatar: require("../../../assets/images/profile-10.jpg"),
     name: "John",
   },
   {
-    avatar: require("../../assets/images/profile-11.jpg"),
+    avatar: require("../../../assets/images/profile-11.jpg"),
     name: "Andrew",
   },
 ];
@@ -120,6 +128,23 @@ const FriendSuggestion = () => {
             </Box>
           );
         })}
+        <IconButton
+          sx={{
+            width: "30px",
+            height: "30px",
+            position: "sticky",
+            right: "5px",
+            top: "50%",
+            transform: "translateY(-50%)",
+            background:
+              "linear-gradient(112.14deg, rgb(52, 97, 255) 1.15%, rgb(152, 72, 255) 73.09%)",
+            // "&:hover": {
+            //   backgroundColor: "#e7f3ff",
+            // },
+          }}
+        >
+          <ArrowRight2 size="24" color="#FFF" />
+        </IconButton>
       </Stack>
     </Box>
   );

@@ -99,10 +99,31 @@ const NotificationHeader = () => {
           horizontal: "center",
         }}
         PaperProps={{
-          style: {
-            maxHeight: "70%",
+          elevation: 0,
+          sx: {
             width: "350px",
             padding: "10px",
+            overflow: "visible",
+            filter: "drop-shadow(0px 2px 2px rgba(0,0,0,0.32))",
+            mt: 1.5,
+            "& .MuiAvatar-root": {
+              width: 32,
+              height: 32,
+              ml: -0.5,
+              mr: 1,
+            },
+            "&:before": {
+              content: '""',
+              display: "block",
+              position: "absolute",
+              top: 0,
+              right: "50%",
+              width: 10,
+              height: 10,
+              bgcolor: "background.paper",
+              transform: "translate(-50%, -50%) rotate(45deg)",
+              zIndex: 0,
+            },
           },
         }}
       >
@@ -110,44 +131,53 @@ const NotificationHeader = () => {
           <Typography variant="h5">Thông báo</Typography>
         </Box>
         <Divider sx={{ margin: "10px 0" }} />
-        {notiList.map((item, idx) => (
-          <MenuItem
-            key={idx}
-            // selected={option === "Pyxis"}
-            // onClick={handleClose}
-            sx={{
-              padding: "10px",
-              backgroundColor: "transparent",
-              borderRadius: "10px",
-              "&:hover": {
-                backgroundColor: "#e7f3ff",
-              },
-            }}
-          >
-            <Box
+        <Box
+          sx={{
+            maxHeight: "600px",
+
+            overflow: "scroll",
+          }}
+        >
+          {notiList.map((item, idx) => (
+            <MenuItem
+              key={idx}
+              // selected={option === "Pyxis"}
+              // onClick={handleClose}
               sx={{
-                display: "flex",
-                alignItems: "start",
+                padding: "10px",
+                backgroundColor: "transparent",
+                borderRadius: "10px",
+                "&:hover": {
+                  backgroundColor: "#e7f3ff",
+                },
               }}
             >
-              <img
-                src={item.avatar}
-                style={{
-                  width: "50px",
-                  height: "50px",
-                  borderRadius: "10px",
-                  marginRight: "10px",
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "start",
                 }}
-              />
-              <Box>
-                <Typography variant="body2">
-                  {item.name} đã bình luận bài viết của bạn
-                </Typography>
-                <Typography variant="subtitle1">3 giờ trước</Typography>
+              >
+                <img
+                  src={item.avatar}
+                  style={{
+                    width: "50px",
+                    height: "50px",
+                    borderRadius: "10px",
+                    marginRight: "10px",
+                  }}
+                  alt="avatar noti user"
+                />
+                <Box>
+                  <Typography variant="body2">
+                    {item.name} đã bình luận bài viết của bạn
+                  </Typography>
+                  <Typography variant="subtitle1">3 giờ trước</Typography>
+                </Box>
               </Box>
-            </Box>
-          </MenuItem>
-        ))}
+            </MenuItem>
+          ))}
+        </Box>
       </Menu>
     </div>
   );

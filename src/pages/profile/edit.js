@@ -18,7 +18,6 @@ import { handleUploadToStorage } from "../../utils/uploadFile";
 import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import { GalleryEdit, Edit2 } from "iconsax-react";
 import useAuth from "../../hooks/useAuth";
-import { wait } from "@testing-library/user-event/dist/utils";
 import { updateProfileApi } from "../../services/api";
 
 const EditItem = styled(Box)({
@@ -49,8 +48,8 @@ const EditProfile = ({ handleClose, open }) => {
         avatar: avatarImage ? await handleUploadToStorage(avatarImage) : "",
         banner: bannerImage ? await handleUploadToStorage(bannerImage) : "",
       };
-      console.log("data:", data);
-      console.log("editdata:", editData);
+      // console.log("data:", data);
+      // console.log("editdata:", editData);
 
       await updateProfileApi(data);
       handleClose();
@@ -191,15 +190,6 @@ const EditProfile = ({ handleClose, open }) => {
             label="Tên đăng nhập"
             id="edit-username"
             name="username"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="start">
-                  <IconButton size="small">
-                    <Edit2 color="#FF8A65" variant="Bold" size="16" />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
           />
           <TextField
             onChange={(e) => handleChangeInput(e)}
@@ -210,19 +200,6 @@ const EditProfile = ({ handleClose, open }) => {
             label="Số điện thoại"
             id="edit-phonenumber"
             name="phonenumber"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="start">
-                  <IconButton
-                    size="small"
-
-                    // onClick={handleClickShowPassword}
-                  >
-                    <Edit2 color="#FF8A65" variant="Bold" size="16" />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
           />
           <TextField
             onChange={(e) => handleChangeInput(e)}
@@ -233,15 +210,6 @@ const EditProfile = ({ handleClose, open }) => {
             label="Chữ ký"
             id="edit-signature"
             name="signature"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="start">
-                  <IconButton size="small">
-                    <Edit2 color="#FF8A65" variant="Bold" size="16" />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
           />
         </Stack>
       </DialogContent>

@@ -12,9 +12,9 @@ const RightBar = () => {
         flexDirection: "column",
       }}
     >
-      <FriendsList sx={{ height: "60%" }} />
+      <FriendsList />
       <Divider sx={{ margin: "10px 0", height: "5%" }} />
-      <ChatGroup sx={{ height: "35%" }} />
+      <ChatGroup />
     </Box>
   );
 };

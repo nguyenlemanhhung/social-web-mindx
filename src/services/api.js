@@ -24,6 +24,6 @@ export const createPostApi = (payload) => {
 export const getAllPostsByCurrentUserApi = () => {
   return HttpRequest.get("/post/my-post");
 };
-export const getAllPostApi = () => {
+export const getAllPostsApi = () => {
   return HttpRequest.get("/post");
 };

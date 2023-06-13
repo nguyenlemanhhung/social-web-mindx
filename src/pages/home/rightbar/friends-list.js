@@ -1,6 +1,5 @@
 import React from "react";
-import { Typography, Paper, Box, Stack } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { Typography, Box, Stack } from "@mui/material";
 import StackItemStyle from "../../../components/StackItemStyle";
 import AvatarSmallStyle from "../../../components/AvatarSmallStyle";
 
@@ -52,7 +51,7 @@ const FriendsList = () => {
     <Box
       sx={{
         position: "relative",
-        // marginBottom: "20px",
+        maxHeight: "50%",
         padding: "10px",
       }}
     >

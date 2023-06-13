@@ -1,30 +1,25 @@
-import { Typography, Button, styled } from "@mui/material";
+import { Button } from "@mui/material";
 
-const ButtonStack = styled(Button)({
-  color: "#fff",
-  backgroundColor: "#f8f8f8",
-  border: "1px solid #E7F3FF",
-  borderRadius: "20px",
-  padding: "5px 15px",
-  "&:hover": {
-    backgroundColor: "#E7F3FF",
-  },
-});
-const ButtonAction = styled("img")({
-  width: "20px",
-  marginRight: "5px",
-});
-const TextButton = styled(Typography)({
-  fontSize: "12px",
-  textTransform: "capitalize",
-});
-
-const ButtonActionPost = ({ name, urlIcon }) => {
+const ButtonActionPost = ({ text, icon, onClick }) => {
   return (
-    <ButtonStack size="small">
-      <ButtonAction src={urlIcon} />
-      <TextButton variant="subtitle2">{name}</TextButton>
-    </ButtonStack>
+    <Button
+      onClick={onClick}
+      fullWidth
+      startIcon={icon}
+      sx={{
+        color: "#65676b",
+        fontSize: "14px",
+        fontWeight: "600",
+        textTransform: "capitalize",
+        padding: "10px 20px",
+        borderRadius: "5px",
+        "&:hover": {
+          backgroundColor: "#f2f2f2",
+        },
+      }}
+    >
+      {text}
+    </Button>
   );
 };
 export default ButtonActionPost;

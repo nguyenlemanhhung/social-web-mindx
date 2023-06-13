@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ButtonActionPost from "../../../components/ButtonActionPost";
+import { handleUploadToStorage } from "../../../../utils/uploadFile";
 import {
   Box,
   Typography,
@@ -12,12 +12,18 @@ import {
   Stack,
 } from "@mui/material";
 import { CloseSquare } from "iconsax-react";
-import { createPostApi } from "../../../services/api";
+import { createPostApi } from "../../../../services/api";
+import { Gallery, VideoSquare, ChartSquare } from "iconsax-react";
+import ButtonActionNewPost from "../../../../components/ButtonActionNewPost";
 
 const NewPostDialog = ({ open, handleClose }) => {
   const [newPost, setNewPost] = useState({
     content: "",
+    image: "",
+    video: "",
   });
+
+  const [imagePost, setImagePost] = useState();
 
   const handleChangePost = (e) => {
     const { name, value } = e.target;
@@ -25,7 +31,13 @@ const NewPostDialog = ({ open, handleClose }) => {
   };
   const handleCreatePost = async () => {
     try {
-      await createPostApi(newPost);
+      const data = {
+        ...newPost,
+        image: imagePost ? await handleUploadToStorage(imagePost) : "",
+      };
+      // console.log("data:", data);
+
+      await createPostApi(data);
       setNewPost(null);
       handleClose();
     } catch (error) {
@@ -71,35 +83,62 @@ const NewPostDialog = ({ open, handleClose }) => {
             marginBottom: "10px",
             "&.css-beyidw-MuiInputBase-root-MuiInput-root:before": {
               border: "none",
-            },
-            "&.css-beyidw-MuiInputBase-root-MuiInput-root:before": {
               borderBottom: "none",
             },
+
             "&.css-beyidw-MuiInputBase-root-MuiInput-root:hover:not(.Mui-disabled):before":
               {
                 borderBottom: "none",
               },
           }}
         />
+        <Box
+          sx={{
+            mb: 2,
+          }}
+        >
+          {imagePost ? (
+            <img
+              src={URL.createObjectURL(imagePost)}
+              style={{
+                width: "auto",
+                height: "100px",
+                borderRadius: "10px",
+              }}
+            />
+          ) : (
+            ""
+          )}
+        </Box>
         <Stack direction="row" spacing={2}>
-          <ButtonActionPost
-            urlIcon={require("../../../assets/icons/picture.png")}
-            name={"Photo"}
+          <ButtonActionNewPost
+            type={"file"}
+            name={"photo"}
+            icon={<Gallery size="24" color="#549bff" variant="Bulk" />}
+            text={"Photo"}
+            onChange={(e) => setImagePost(e.target.files[0])}
           />
-          <ButtonActionPost
-            urlIcon={require("../../../assets/icons/video.png")}
-            name={"Video"}
+          <ButtonActionNewPost
+            type={"file"}
+            name={"video"}
+            icon={<VideoSquare size="24" color="#fd3b4f" variant="Bold" />}
+            text={"Video"}
+            // onChange={(e) => setImagePost(e.target.files[0])}
           />
-          <ButtonActionPost
-            urlIcon={require("../../../assets/icons/polling.png")}
-            name={"Polling"}
+          <ButtonActionNewPost
+            type={"file"}
+            name={"polling"}
+            icon={<ChartSquare size="24" color="#9d9fe8" variant="Bulk" />}
+            text={"Khảo sát"}
+            // onChange={(e) => setImagePost(e.target.files[0])}
           />
         </Stack>
         <Button
           fullWidth
           onClick={handleCreatePost}
           sx={{
-            backgroundColor: newPost && newPost.content ? "#E7F3FF" : "#E4E6EB",
+            backgroundColor:
+              newPost && newPost.content && imagePost ? "#E7F3FF" : "#E4E6EB",
             color: newPost && newPost.content ? "#656565" : "#BCC0C4",
             marginTop: "20px",
           }}

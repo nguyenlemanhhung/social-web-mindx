@@ -5,11 +5,12 @@ import { Box, Container } from "@mui/material";
 
 const Body = () => {
   return (
-    <Box style={{ height: "calc(100vh - 75px)", paddingTop: "20px" }}>
+    <Box style={{ height: "calc(100vh - 75px)" }}>
       <Container
         maxWidth="xxl"
         sx={{
           height: "100%",
+          padding: "20px",
         }}
       >
         <Outlet />

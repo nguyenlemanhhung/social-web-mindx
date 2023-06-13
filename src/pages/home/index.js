@@ -1,24 +1,16 @@
 import React from "react";
-import Story from "./story";
-import NewPost from "./new-post";
-import Post from "../../components/post";
 import LeftBar from "./leftbar";
 import RightBar from "./rightbar";
-import { Grid, Box } from "@mui/material";
-import FriendSuggestion from "./FriendSuggestion";
+import MainHomePage from "./main";
+import { Grid } from "@mui/material";
 
 const HomePage = () => {
   return (
-    <Grid container spacing={2} sx={{ height: "100%" }}>
-      <Grid
-        item
-        md={3}
-        sx={{
-          height: "100%",
-        }}
-      >
+    <Grid container sx={{ height: "100%" }}>
+      <Grid item md={3} sx={{ height: "100%" }}>
         <LeftBar />
       </Grid>
+
       <Grid
         item
         md={7}
@@ -26,31 +18,17 @@ const HomePage = () => {
           display: "flex",
           justifyContent: "center",
           height: "100%",
+          overflow: "scroll",
         }}
       >
-        <Box
-          sx={{
-            maxWidth: "750px",
-            overflow: "scroll",
-          }}
-        >
-          <Story />
-          <NewPost />
-          <FriendSuggestion />
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-        </Box>
+        <MainHomePage />
       </Grid>
+
       <Grid
         item
         md={2}
         sx={{
-          height: "100vh",
-          position: "sticky",
-          top: "70px",
-          paddingBottom: "70px",
+          height: "100%",
         }}
       >
         <RightBar />

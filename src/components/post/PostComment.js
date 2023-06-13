@@ -6,7 +6,7 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import SmsOutlinedIcon from "@mui/icons-material/SmsOutlined";
-import PostAction from "./PostAction";
+
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import AvataPostStyle from "../AvataPostStyle";
@@ -19,25 +19,7 @@ import FilledInput from "@mui/material/FilledInput";
 import SendIcon from "@mui/icons-material/Send";
 import { styled } from "@mui/material/styles";
 import Stack from "@mui/material/Stack";
-
-const ButtonStack = styled(Button)({
-  color: "#fff",
-  backgroundColor: "#f8f8f8",
-  border: "1px solid #E7F3FF",
-  borderRadius: "20px",
-  padding: "2px 5px",
-  "&:hover": {
-    backgroundColor: "#E7F3FF",
-  },
-});
-const ButtonAction = styled("img")({
-  width: "20px",
-  marginRight: "5px",
-});
-const TextButton = styled(Typography)({
-  fontSize: "12px",
-  textTransform: "capitalize",
-});
+import { LikeTag } from "iconsax-react";
 
 const listComments = [
   {
@@ -66,11 +48,17 @@ const listComments = [
   },
 ];
 
-const PostComment = ({ open, handleCloseComment }) => {
+const PostComment = ({
+  openComment,
+  handleCloseComment,
+  username,
+  postContent,
+  postImage,
+}) => {
   return (
-    <Dialog open={open} onClose={handleCloseComment}>
+    <Dialog open={openComment} onClose={handleCloseComment}>
       <DialogTitle id="customized-dialog-title" sx={{ textAlign: "center" }}>
-        Post's Mudreh Kumbirai
+        Bài viết của {username}
         <IconButton
           aria-label="close"
           onClick={handleCloseComment}
@@ -104,21 +92,37 @@ const PostComment = ({ open, handleCloseComment }) => {
             </Typography>
           </Box>
         </Box>
-        <Typography variant="body2">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-          blanditiis tenetur unde suscipit, quam beatae rerum inventore
-          consectetur, neque doloribus, cupiditate numquam dignissimos laborum
-          fugiat deleniti? Eum quasi quidem quibusdam.
-        </Typography>
-        <img
-          style={{
-            width: "100%",
-            marginTop: "10px",
-            borderRadius: "20px",
+        <Box
+          sx={{
+            padding: "20px",
           }}
-          src={require("../../assets/images/feed-2.jpg")}
-        />
-        <PostAction />
+        >
+          <Typography variant="body2">{postContent}</Typography>
+          <img
+            style={{
+              width: "100%",
+              marginTop: "10px",
+              borderRadius: "20px",
+            }}
+            src={postImage}
+          />
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            padding: "0 20px",
+          }}
+        >
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <LikeTag size="24" color="#FF8A65" variant="Bulk" />
+            <Typography variant="subtitle1">100 lươt thích</Typography>
+          </Box>
+          <Box>
+            <Typography variant="subtitle1">50 bình luận</Typography>
+          </Box>
+        </Box>
         <Divider sx={{ margin: "10px 0 20px" }} />
         {listComments.map((item, idx) => (
           <Box
@@ -176,18 +180,6 @@ const PostComment = ({ open, handleCloseComment }) => {
                 }
               />
             </FormControl>
-            <Stack direction="row" spacing={2}>
-              <ButtonStack size="small">
-                <ButtonAction src={require("../../assets/icons/picture.png")} />
-                <TextButton variant="subtitle2">Photo</TextButton>
-              </ButtonStack>
-              <ButtonStack size="small">
-                <ButtonAction
-                  src={require("../../assets/icons/attach-file.png")}
-                />
-                <TextButton variant="subtitle2">Files</TextButton>
-              </ButtonStack>
-            </Stack>
           </Box>
         </Box>
       </DialogActions>
