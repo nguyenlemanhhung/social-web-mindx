@@ -36,7 +36,7 @@ const ChatGroup = () => {
       sx={{
         position: "relative",
         padding: "10px",
-        maxHeight: "30%",
+        height: "30%",
       }}
     >
       <Box

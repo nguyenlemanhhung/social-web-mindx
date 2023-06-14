@@ -3,13 +3,13 @@ import { useState, useCallback, useEffect } from "react";
 import { getAllPostsApi } from "../../../../services/api";
 import NoAvatar from "../../../../assets/images/avatar.webp";
 import PostComponent from "../../../../components/post";
-import PostComment from "../../../../components/post/PostComment";
+import PostDetailsDialog from "./PostDetailsDialog";
 
 const Posts = () => {
-  const [openComment, setOpenComment] = useState(false);
-
+  const [openPostDetails, setOpenPostDetails] = useState(false);
+  const [postDetails, setPostDetails] = useState(null);
   const [posts, setPosts] = useState(null);
-
+  console.log("posts", posts);
   const fetchPosts = useCallback(async () => {
     try {
       const response = await getAllPostsApi();
@@ -25,12 +25,14 @@ const Posts = () => {
     fetchPosts();
   });
 
-  const handleOpenComment = (item) => {
-    console.log("item", item);
-    setOpenComment(true);
+  const handleOpenPostDetails = (item) => {
+    // console.log("item", item);
+    setPostDetails(item);
+
+    setOpenPostDetails(true);
   };
-  const handleCloseComment = () => {
-    setOpenComment(false);
+  const handleClosePostDetails = () => {
+    setOpenPostDetails(false);
   };
 
   return (
@@ -38,24 +40,23 @@ const Posts = () => {
       {posts
         ? posts.map((item, idx) => {
             return (
-              <>
-                <PostComponent
-                  key={idx}
-                  avatar={item.user.avatar ? item.user.avatar : NoAvatar}
-                  username={item.user.username}
-                  postContent={item.content}
-                  postImage={item.image}
-                  handleOpenComment={() => handleOpenComment(item)}
-                />
-                <PostComment
-                  username={item.content}
-                  openComment={openComment}
-                  handleCloseComment={handleCloseComment}
-                />
-              </>
+              <PostComponent
+                key={idx}
+                avatar={item.user.avatar ? item.user.avatar : NoAvatar}
+                username={item.user.username}
+                postContent={item.content}
+                postImage={item.image}
+                handleOpenComment={() => handleOpenPostDetails(item)}
+              />
             );
           })
         : "Bạn chưa có bài viết nào"}
+
+      <PostDetailsDialog
+        postDetails={postDetails}
+        openPostDetails={openPostDetails}
+        handleClosePostDetails={handleClosePostDetails}
+      />
     </Stack>
   );
 };
