@@ -4,17 +4,23 @@ import { getAllPostsApi } from "../../../../services/api";
 import NoAvatar from "../../../../assets/images/avatar.webp";
 import PostComponent from "../../../../components/post";
 import PostDetailsDialog from "./PostDetailsDialog";
+import { useDispatch, useSelector } from "../../../../redux/store";
+import { setPosts } from "../../../../redux/slices/post";
 
 const Posts = () => {
+  const dispatch = useDispatch();
+  const { posts } = useSelector((state) => state.postData);
+
   const [openPostDetails, setOpenPostDetails] = useState(false);
   const [postDetails, setPostDetails] = useState(null);
-  const [posts, setPosts] = useState(null);
-  console.log("posts", posts);
+  const [postList, setPostList] = useState(null);
+
   const fetchPosts = useCallback(async () => {
     try {
       const response = await getAllPostsApi();
       if (response.data) {
-        setPosts(response.data);
+        setPostList(response.data);
+        dispatch(setPosts(response.data));
       }
     } catch (error) {
       console.log(error);
@@ -23,10 +29,9 @@ const Posts = () => {
 
   useEffect(() => {
     fetchPosts();
-  });
+  }, [fetchPosts]);
 
   const handleOpenPostDetails = (item) => {
-    // console.log("item", item);
     setPostDetails(item);
 
     setOpenPostDetails(true);
@@ -37,8 +42,8 @@ const Posts = () => {
 
   return (
     <Stack>
-      {posts
-        ? posts.map((item, idx) => {
+      {postList
+        ? postList.map((item, idx) => {
             return (
               <PostComponent
                 key={idx}
@@ -51,12 +56,13 @@ const Posts = () => {
             );
           })
         : "Bạn chưa có bài viết nào"}
-
-      <PostDetailsDialog
-        postDetails={postDetails}
-        openPostDetails={openPostDetails}
-        handleClosePostDetails={handleClosePostDetails}
-      />
+      {postDetails ? (
+        <PostDetailsDialog
+          postDetails={postDetails}
+          openPostDetails={openPostDetails}
+          handleClosePostDetails={handleClosePostDetails}
+        />
+      ) : null}
     </Stack>
   );
 };

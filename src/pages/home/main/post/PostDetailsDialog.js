@@ -50,9 +50,6 @@ const PostDetailsDialog = ({
   handleClosePostDetails,
   postDetails,
 }) => {
-  {
-    console.log("postDetails:", postDetails);
-  }
   return (
     <Dialog open={openPostDetails} onClose={handleClosePostDetails}>
       <DialogTitle id="customized-dialog-title" sx={{ textAlign: "center" }}>
@@ -77,7 +74,7 @@ const PostDetailsDialog = ({
             marginBottom: "15px",
           }}
         >
-          <AvataPostStyle src={postDetails ? postDetails.user.avatar : ""} />
+          <AvataPostStyle src={postDetails.user.avatar} />
           <Box>
             <Typography variant="subtitle2">
               {postDetails.user.email}

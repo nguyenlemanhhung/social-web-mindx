@@ -15,9 +15,13 @@ import { Edit2, Trash } from "iconsax-react";
 import { Like1, MessageText1 } from "iconsax-react";
 import ButtonActionPost from "../ButtonActionPost";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
+import useAuth from "../../hooks/useAuth";
 
 const PostComponent = (props) => {
   const { avatar, username, postContent, postImage, handleOpenComment } = props;
+
+  const { user } = useAuth();
+  const isAuthor = user.username === username;
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -55,16 +59,19 @@ const PostComponent = (props) => {
           <Typography variant="body1">{username}</Typography>
         </Box>
         <Box>
-          <IconButton
-            aria-label="more"
-            id="long-button"
-            aria-controls={open ? "post-menu" : undefined}
-            aria-expanded={open ? "true" : undefined}
-            aria-haspopup="true"
-            onClick={handleClick}
-          >
-            <More size="24" color={open ? "#ff8a65" : "#697689"} />
-          </IconButton>
+          {isAuthor ? (
+            <IconButton
+              aria-label="more"
+              id="long-button"
+              aria-controls={open ? "post-menu" : undefined}
+              aria-expanded={open ? "true" : undefined}
+              aria-haspopup="true"
+              onClick={handleClick}
+            >
+              <More size="24" color={open ? "#ff8a65" : "#697689"} />
+            </IconButton>
+          ) : null}
+
           <Menu
             id="post-menu"
             anchorEl={anchorEl}
