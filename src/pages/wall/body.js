@@ -7,7 +7,7 @@ import NoAvatar from "../../assets/images/avatar.webp";
 
 const BodyWall = () => {
   const [posts, setPosts] = useState(null);
-  console.log("post by user: ", posts);
+
   const fetchPosts = useCallback(async () => {
     try {
       const response = await getAllPostsByCurrentUserApi();

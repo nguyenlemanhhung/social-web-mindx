@@ -53,25 +53,25 @@ const Nav = () => {
       }}
     >
       <NavLinkStyle to="/" className="nav-link" style={navLinkStyle}>
-        <Tooltip title="Home Page">
+        <Tooltip title="Trang chủ">
           <Home2 size="24" />
         </Tooltip>
       </NavLinkStyle>
 
       <NavLinkStyle to="/wall" className="nav-link" style={navLinkStyle}>
-        <Tooltip title="My Wall">
+        <Tooltip title="Trang cá nhân">
           <Personalcard size="24" />
         </Tooltip>
       </NavLinkStyle>
 
       <NavLinkStyle to="/messages" className="nav-link" style={navLinkStyle}>
-        <Tooltip title="messages">
+        <Tooltip title="Tin nhắn">
           <Messages size="24" />
         </Tooltip>
       </NavLinkStyle>
 
       <NavLinkStyle to="/favorite" className="nav-link" style={navLinkStyle}>
-        <Tooltip title="Favorites">
+        <Tooltip title="Bài viết yêu thich">
           <NoteFavorite size="24" />
         </Tooltip>
       </NavLinkStyle>

@@ -12,9 +12,8 @@ import {
   FilledInput,
 } from "@mui/material";
 import CommentPost from "../../../../components/CommentPost";
-import { LikeTag } from "iconsax-react";
-import SendIcon from "@mui/icons-material/Send";
-import CloseIcon from "@mui/icons-material/Close";
+import { LikeTag, Send, CloseSquare } from "iconsax-react";
+import NoAvatar from "../../../../assets/images/avatar.webp";
 
 import AvataPostStyle from "../../../../components/AvataPostStyle";
 
@@ -54,6 +53,7 @@ const PostDetailsDialog = ({
     <Dialog open={openPostDetails} onClose={handleClosePostDetails}>
       <DialogTitle id="customized-dialog-title" sx={{ textAlign: "center" }}>
         Bài viết của {postDetails.user.username}
+        <Typography variant="body1"></Typography>
         <IconButton
           aria-label="close"
           onClick={handleClosePostDetails}
@@ -63,7 +63,7 @@ const PostDetailsDialog = ({
             top: 8,
           }}
         >
-          <CloseIcon />
+          <CloseSquare size="24" color="#697689" />
         </IconButton>
       </DialogTitle>
       <DialogContent sx={{ backgroundColor: "#fff" }} dividers>
@@ -74,26 +74,15 @@ const PostDetailsDialog = ({
             marginBottom: "15px",
           }}
         >
-          <AvataPostStyle src={postDetails.user.avatar} />
+          <AvataPostStyle
+            src={postDetails.user.avatar ? postDetails.user.avatar : NoAvatar}
+          />
           <Box>
-            <Typography variant="subtitle2">
-              {postDetails.user.email}
-            </Typography>
-            <Typography
-              variant="body1"
-              sx={{
-                marginTop: "10px",
-              }}
-            >
-              {postDetails.user.username}
-            </Typography>
+            <Typography variant="body1">{postDetails.user.username}</Typography>
+            <Typography variant="subtitle2">2 giờ trước</Typography>
           </Box>
         </Box>
-        <Box
-          sx={{
-            padding: "20px",
-          }}
-        >
+        <Box>
           <Typography variant="body2">{postDetails.content}</Typography>
           <img
             style={{
@@ -125,7 +114,7 @@ const PostDetailsDialog = ({
           <CommentPost key={idx} avatar={item.avatar} text={item.text} />
         ))}
       </DialogContent>
-      <DialogActions>
+      <DialogActions sx={{ padding: "10px 20px" }}>
         <Box
           sx={{
             display: "flex",
@@ -133,7 +122,9 @@ const PostDetailsDialog = ({
             width: "100%",
           }}
         >
-          <AvataPostStyle src={postDetails.user.avatar} />
+          <AvataPostStyle
+            src={postDetails.user.avatar ? postDetails.user.avatar : NoAvatar}
+          />
           <Box
             sx={{
               width: "100%",
@@ -145,7 +136,7 @@ const PostDetailsDialog = ({
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton edge="end">
-                      <SendIcon fontSize="small" />
+                      <Send size="24" color="#697689" />
                     </IconButton>
                   </InputAdornment>
                 }

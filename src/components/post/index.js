@@ -18,7 +18,14 @@ import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import useAuth from "../../hooks/useAuth";
 
 const PostComponent = (props) => {
-  const { avatar, username, postContent, postImage, handleOpenComment } = props;
+  const {
+    avatar,
+    username,
+    postContent,
+    postImage,
+    handleOpenPostDetails,
+    handleOpenEditPost,
+  } = props;
 
   const { user } = useAuth();
   const isAuthor = user.username === username;
@@ -56,7 +63,10 @@ const PostComponent = (props) => {
           }}
         >
           <AvataPostStyle src={avatar} />
-          <Typography variant="body1">{username}</Typography>
+          <Box>
+            <Typography variant="body1">{username}</Typography>
+            <Typography variant="subtitle1">2 giờ trước</Typography>
+          </Box>
         </Box>
         <Box>
           {isAuthor ? (
@@ -106,7 +116,7 @@ const PostComponent = (props) => {
             transformOrigin={{ horizontal: "right", vertical: "top" }}
             anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
           >
-            <MenuItem>
+            <MenuItem onClick={handleOpenEditPost}>
               <Edit2 size="16" color="#FF8A65" variant="Outline" />
               <Typography variant="body2" ml={1}>
                 Chỉnh sửa bài viết
@@ -169,7 +179,7 @@ const PostComponent = (props) => {
           <ButtonActionPost
             icon={<MessageText1 size="24" color="#65676b" />}
             text={"Bình luận"}
-            onClick={handleOpenComment}
+            onClick={handleOpenPostDetails}
           />
         </Grid>
         <Grid item xs={4}>
