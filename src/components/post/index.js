@@ -19,6 +19,7 @@ import useAuth from "../../hooks/useAuth";
 
 const PostComponent = (props) => {
   const {
+    countComments,
     avatar,
     username,
     postContent,
@@ -28,7 +29,7 @@ const PostComponent = (props) => {
   } = props;
 
   const { user } = useAuth();
-  const isAuthor = user.username === username;
+  const isAuthor = user && user.username === username;
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -40,7 +41,7 @@ const PostComponent = (props) => {
   };
 
   return (
-    <CardStyle sx={{ marginTop: "20px", padding: "20px 0" }}>
+    <CardStyle sx={{ padding: "20px 0" }}>
       <Box
         sx={{
           display: "flex",
@@ -160,7 +161,7 @@ const PostComponent = (props) => {
           <Typography variant="subtitle1">100 lươt thích</Typography>
         </Box>
         <Box>
-          <Typography variant="subtitle1">50 bình luận</Typography>
+          <Typography variant="subtitle1">{countComments} bình luận</Typography>
         </Box>
       </Box>
       <Divider

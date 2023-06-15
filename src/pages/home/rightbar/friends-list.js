@@ -2,51 +2,72 @@ import React from "react";
 import { Typography, Box, Stack } from "@mui/material";
 import StackItemStyle from "../../../components/StackItemStyle";
 import AvatarSmallStyle from "../../../components/AvatarSmallStyle";
+import CircleIcon from "@mui/icons-material/Circle";
 
 const friends = [
   {
-    name: "friend 1",
+    name: "Xuân Nguyễn",
     avatar: require("../../../assets/images/profile-1.jpg"),
+    isOnline: true,
+    offlineTime: "",
   },
   {
-    name: "friend 2",
+    name: "Cường Phạm",
     avatar: require("../../../assets/images/profile-2.jpg"),
+    isOnline: false,
+    offlineTime: "1 giờ trước",
   },
   {
-    name: "friend 3",
+    name: "Thảo Vit",
     avatar: require("../../../assets/images/profile-3.jpg"),
+    isOnline: false,
+    offlineTime: "30 phút trước",
   },
   {
-    name: "friend 4",
+    name: "Lam Tran",
     avatar: require("../../../assets/images/profile-4.jpg"),
+    isOnline: true,
+    offlineTime: "",
   },
   {
-    name: "friend 5",
+    name: "Thuỳ Dương",
     avatar: require("../../../assets/images/profile-5.jpg"),
+    isOnline: false,
+    offlineTime: "15 phút trước",
   },
   {
-    name: "friend 6",
+    name: "Nhật Minh",
     avatar: require("../../../assets/images/profile-6.jpg"),
+    isOnline: true,
+    offlineTime: "",
   },
   {
-    name: "friend 7",
+    name: "Hà Thu",
     avatar: require("../../../assets/images/profile-7.jpg"),
+    isOnline: true,
+    offlineTime: "",
   },
   {
-    name: "friend 8",
+    name: "Nguyễn Khánh",
     avatar: require("../../../assets/images/profile-8.jpg"),
+    isOnline: false,
+    offlineTime: "2 giờ trước",
   },
   {
-    name: "friend 9",
+    name: "Han Tam",
     avatar: require("../../../assets/images/profile-9.jpg"),
+    isOnline: false,
+    offlineTime: "2 giờ trước",
   },
   {
-    name: "friend 10",
+    name: "Thanh Thu",
     avatar: require("../../../assets/images/profile-10.jpg"),
+    isOnline: true,
+    offlineTime: "",
   },
 ];
 
-const FriendsList = () => {
+const FriendsList = ({ handleOpenChatBox, item }) => {
   return (
     <Box
       sx={{
@@ -70,9 +91,32 @@ const FriendsList = () => {
         }}
       >
         {friends.map((item, idx) => (
-          <StackItemStyle key={idx} elevation={0}>
-            <AvatarSmallStyle src={item.avatar} />
-            <Typography variant="body2">{item.name}</Typography>
+          <StackItemStyle
+            key={idx}
+            elevation={0}
+            onClick={() => handleOpenChatBox(item)}
+          >
+            <AvatarSmallStyle
+              src={item.avatar}
+              style={{
+                border: `2px solid ${item.isOnline ? "#7ed882" : "#b2b2b2"}`,
+              }}
+            />
+
+            <Box>
+              <Typography variant="body2">{item.name}</Typography>
+
+              <Typography
+                variant="subtitle2"
+                sx={{
+                  borderRadius: "10px",
+                  color: item.isOnline ? "#58c265" : "#656565",
+                  lineHeight: "1",
+                }}
+              >
+                {item.isOnline ? "online" : `${item.offlineTime}`}
+              </Typography>
+            </Box>
           </StackItemStyle>
         ))}
       </Stack>

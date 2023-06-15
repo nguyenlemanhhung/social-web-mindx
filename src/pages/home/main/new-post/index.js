@@ -60,7 +60,7 @@ const NewPost = () => {
               type={"button"}
               name={"photo"}
               icon={<Gallery size="24" color="#549bff" variant="Bulk" />}
-              text={"Photo"}
+              text={"Ảnh"}
               onClick={handleClickOpen}
             />
             <ButtonActionNewPost

@@ -1,43 +1,80 @@
-import React, { useState } from "react";
-import { IconButton, Box, Button, Typography } from "@mui/material";
-import { CloseSquare } from "iconsax-react";
+import React from "react";
+import {
+  IconButton,
+  Box,
+  Typography,
+  InputAdornment,
+  FilledInput,
+} from "@mui/material";
+import { CloseSquare, Gallery, Send } from "iconsax-react";
+import AvatarSmallStyle from "../../../components/AvatarSmallStyle";
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
-
-const ChatBox = () => {
-  const [openChatBox, setOpenChatBox] = useState(false);
-  const handleOpen = () => setOpenChatBox(true);
-  const handleClose = () => setOpenChatBox(false);
-
+const ChatBox = ({ openChatBox, handleCloseChatBox, friendSelect }) => {
   return (
-    <div>
-      <Button onClick={handleOpen}>Open modal</Button>
+    <Box
+      sx={{
+        width: "300px",
+        boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
+
+        backgroundColor: "#FFF",
+        display: openChatBox ? "block" : "none",
+        position: "fixed",
+        bottom: "0",
+        right: "200px",
+        borderRadius: "10px",
+      }}
+    >
       <Box
         sx={{
-          width: "300px",
-          height: "300px",
-          backgroundColor: "#E7F3FF",
-          display: openChatBox ? "block" : "none",
-          position: "fixed",
-          bottom: "0",
-          left: "0",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "10px",
+          borderBottom: "1px solid #f2f2f2",
         }}
       >
-        <IconButton onClick={handleClose}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <AvatarSmallStyle src={friendSelect ? friendSelect.avatar : null} />
+          <Typography>{friendSelect ? friendSelect.name : null}</Typography>
+        </Box>
+        <IconButton onClick={handleCloseChatBox}>
           <CloseSquare size="24" color="#697689" />
         </IconButton>
       </Box>
-    </div>
+      <Box
+        sx={{
+          width: "100%",
+          height: "250px",
+          padding: "10px",
+        }}
+      ></Box>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          padding: "10px",
+          borderTop: "1px solid #f2f2f2",
+        }}
+      >
+        <IconButton>
+          <Gallery size="24" color="#697689" />
+        </IconButton>
+        <FilledInput
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton edge="end">
+                <Send size="24" color="#697689" />
+              </IconButton>
+            </InputAdornment>
+          }
+        />
+      </Box>
+    </Box>
   );
 };
 export default ChatBox;

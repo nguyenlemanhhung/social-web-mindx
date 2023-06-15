@@ -27,3 +27,9 @@ export const getAllPostsByCurrentUserApi = () => {
 export const getAllPostsApi = () => {
   return HttpRequest.get("/post");
 };
+
+// comment  post
+
+export const createCommentApi = (post_id, payload) => {
+  return HttpRequest.post(`/post/${post_id}/comments/create`, payload);
+};

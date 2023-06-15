@@ -29,7 +29,7 @@ const BodyWall = () => {
           <FriendShortList />
         </Grid>
         <Grid item xs={8}>
-          <Stack>
+          <Stack spacing={2}>
             {posts
               ? posts.map((item, idx) => {
                   return (

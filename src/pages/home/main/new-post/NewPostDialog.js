@@ -67,7 +67,7 @@ const NewPostDialog = ({ open, handleClose }) => {
               right: "5px",
             }}
           >
-            <CloseSquare size="24" color="#FF8A65" />
+            <CloseSquare size="24" color="#697689" />
           </IconButton>
         </Box>
         <Divider sx={{ margin: "10px 0" }} />
@@ -115,7 +115,7 @@ const NewPostDialog = ({ open, handleClose }) => {
             type={"file"}
             name={"photo"}
             icon={<Gallery size="24" color="#549bff" variant="Bulk" />}
-            text={"Photo"}
+            text={"Ảnh"}
             onChange={(e) => setImagePost(e.target.files[0])}
           />
           <ButtonActionNewPost
@@ -137,9 +137,13 @@ const NewPostDialog = ({ open, handleClose }) => {
           fullWidth
           onClick={handleCreatePost}
           sx={{
-            backgroundColor:
-              newPost && newPost.content && imagePost ? "#E7F3FF" : "#E4E6EB",
-            color: newPost && newPost.content ? "#656565" : "#BCC0C4",
+            backgroundColor: newPost && newPost.content ? "#E7F3FF" : "#E4E6EB",
+            color: newPost && newPost.content ? "#ff8a65" : "#697689",
+            fontWeight: newPost && newPost.content ? "500" : "300",
+            boxShadow:
+              newPost && newPost.content
+                ? "rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px"
+                : "none",
             marginTop: "20px",
           }}
         >

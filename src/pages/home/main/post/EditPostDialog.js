@@ -27,11 +27,9 @@ const EditPostDialog = ({
     video: "",
   });
 
-  console.log("dataPostEdit:", dataPostEdit);
   useEffect(() => {
     setNewData(dataPostEdit);
   }, []);
-  console.log("newData:", newData);
 
   const [imagePost, setImagePost] = useState();
 

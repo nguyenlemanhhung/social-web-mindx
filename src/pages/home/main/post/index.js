@@ -1,4 +1,4 @@
-import { Button, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import { useState, useCallback, useEffect } from "react";
 import { getAllPostsApi } from "../../../../services/api";
 import NoAvatar from "../../../../assets/images/avatar.webp";
@@ -30,7 +30,6 @@ const Posts = () => {
   const handleOpenEditPost = (item) => {
     setDataPostEdit(item);
     setOpenEditPost(true);
-    console.log("item click:", item);
   };
   const handleCloseEditPost = () => {
     setOpenEditPost(false);
@@ -55,18 +54,19 @@ const Posts = () => {
   }, [fetchPosts]);
 
   return (
-    <Stack>
-      {postList
+    <Stack spacing={2}>
+      {postList && postList.length > 0
         ? postList.map((item, idx) => {
             return (
               <PostComponent
                 key={idx}
-                avatar={item.user.avatar ? item.user.avatar : NoAvatar}
-                username={item.user.username}
-                postContent={item.content}
-                postImage={item.image}
+                avatar={item && item.user.avatar ? item.user.avatar : NoAvatar}
+                username={item && item.user.username}
+                postContent={item && item.content}
+                postImage={item && item.image}
                 handleOpenPostDetails={() => handleOpenPostDetails(item)}
                 handleOpenEditPost={() => handleOpenEditPost(item)}
+                countComments={item.comments.length}
               />
             );
           })

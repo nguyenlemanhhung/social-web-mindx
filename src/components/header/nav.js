@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Badge, Tooltip, Menu, MenuItem, Divider } from "@mui/material";
+import { Box, Tooltip, Divider } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { NavLink } from "react-router-dom";
 import NotificationHeader from "./notiheader";
@@ -49,7 +49,9 @@ const Nav = () => {
         justifyContent: "center",
         alignItems: "center",
         gap: "40px",
-        boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset",
+        // boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset",
+        boxShadow:
+          "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
       }}
     >
       <NavLinkStyle to="/" className="nav-link" style={navLinkStyle}>
