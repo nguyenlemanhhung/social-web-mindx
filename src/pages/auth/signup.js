@@ -23,6 +23,7 @@ import {
   Eye,
   Sms,
 } from "iconsax-react";
+import { isNull } from "lodash";
 
 const SignUpForm = () => {
   const { signup } = useAuth();
@@ -32,13 +33,23 @@ const SignUpForm = () => {
     email: "",
     password: "",
   });
+  const [error, setError] = useState([]);
+
+  function isValidEmail() {
+    return /\S+@\S+\.\S+/.test(formDataSignUp.email);
+  }
 
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
     setFormDataSignUp({ ...formDataSignUp, [name]: value });
+    if (!isValidEmail(e.target.value)) {
+      setError("Email không hợp lệ !");
+    } else {
+      setError(null);
+    }
   };
 
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -86,6 +97,7 @@ const SignUpForm = () => {
           onChange={(e) => handleChangeInput(e)}
         />
         <TextField
+          required
           variant="outlined"
           fullWidth
           label="Email"
@@ -100,6 +112,7 @@ const SignUpForm = () => {
           }}
           onChange={(e) => handleChangeInput(e)}
         />
+
         <TextField
           variant="outlined"
           fullWidth
@@ -161,7 +174,16 @@ const SignUpForm = () => {
           }}
           onChange={(e) => handleChangeInput(e)}
         />
+        {/* {error && error.length ? (
+          <Typography
+            variant="subtitle1"
+            style={{ color: "red", paddingLeft: "20px" }}
+          >
+            - {error}
+          </Typography>
+        ) : null} */}
       </Stack>
+
       <ButtonAuthStyle onClick={handleSignUp} fullWidth>
         Đăng ký
       </ButtonAuthStyle>

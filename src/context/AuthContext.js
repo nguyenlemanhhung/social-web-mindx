@@ -144,10 +144,11 @@ const AuthProvider = ({ children }) => {
   };
   const signout = async () => {
     try {
-      await signOut();
+      localStorage.removeItem("token");
       dispatch({
         type: Types.Signout,
       });
+      navigate("/auth");
     } catch (error) {
       console.error(error);
     }

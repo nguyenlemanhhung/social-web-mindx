@@ -52,6 +52,7 @@ const PostDetailsDialog = ({
   handleClosePostDetails,
   postDetails,
 }) => {
+  console.log("postDetails:", postDetails);
   const { user } = useAuth();
 
   const post_id = postDetails._id;

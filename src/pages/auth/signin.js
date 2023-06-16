@@ -114,6 +114,7 @@ const SignInForm = () => {
           <FormControlLabel
             control={
               <Checkbox
+                defaultChecked
                 size="small"
                 sx={{
                   color: "#3D70B2",

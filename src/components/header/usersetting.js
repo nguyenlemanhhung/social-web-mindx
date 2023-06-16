@@ -11,7 +11,7 @@ import { LoginCurve } from "iconsax-react";
 import useAuth from "../../hooks/useAuth";
 
 const UserSetting = () => {
-  const { user } = useAuth();
+  const { user, signout } = useAuth();
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -29,6 +29,12 @@ const UserSetting = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleSignOut = async () => {
+    try {
+      await signout();
+    } catch (error) {}
   };
 
   return (
@@ -94,7 +100,7 @@ const UserSetting = () => {
       >
         <SwitchMode />
 
-        <MenuItem>
+        <MenuItem onClick={handleSignOut}>
           <LoginCurve size="24" color="#FF8A65" />
           <Typography
             variant="body2"
