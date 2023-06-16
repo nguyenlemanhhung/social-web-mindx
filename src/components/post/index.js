@@ -15,9 +15,21 @@ import { Edit2, Trash } from "iconsax-react";
 import { Like1, MessageText1 } from "iconsax-react";
 import ButtonActionPost from "../ButtonActionPost";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
+import useAuth from "../../hooks/useAuth";
 
 const PostComponent = (props) => {
-  const { avatar, username, postContent, postImage, handleOpenComment } = props;
+  const {
+    countComments,
+    avatar,
+    username,
+    postContent,
+    postImage,
+    handleOpenPostDetails,
+    handleOpenEditPost,
+  } = props;
+
+  const { user } = useAuth();
+  const isAuthor = user && user.username === username;
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -29,7 +41,7 @@ const PostComponent = (props) => {
   };
 
   return (
-    <CardStyle sx={{ marginTop: "20px", padding: "20px 0" }}>
+    <CardStyle sx={{ padding: "20px 0" }}>
       <Box
         sx={{
           display: "flex",
@@ -52,19 +64,25 @@ const PostComponent = (props) => {
           }}
         >
           <AvataPostStyle src={avatar} />
-          <Typography variant="body1">{username}</Typography>
+          <Box>
+            <Typography variant="body1">{username}</Typography>
+            <Typography variant="subtitle1">2 giờ trước</Typography>
+          </Box>
         </Box>
         <Box>
-          <IconButton
-            aria-label="more"
-            id="long-button"
-            aria-controls={open ? "post-menu" : undefined}
-            aria-expanded={open ? "true" : undefined}
-            aria-haspopup="true"
-            onClick={handleClick}
-          >
-            <More size="24" color={open ? "#ff8a65" : "#697689"} />
-          </IconButton>
+          {isAuthor ? (
+            <IconButton
+              aria-label="more"
+              id="long-button"
+              aria-controls={open ? "post-menu" : undefined}
+              aria-expanded={open ? "true" : undefined}
+              aria-haspopup="true"
+              onClick={handleClick}
+            >
+              <More size="24" color={open ? "#ff8a65" : "#697689"} />
+            </IconButton>
+          ) : null}
+
           <Menu
             id="post-menu"
             anchorEl={anchorEl}
@@ -99,7 +117,7 @@ const PostComponent = (props) => {
             transformOrigin={{ horizontal: "right", vertical: "top" }}
             anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
           >
-            <MenuItem>
+            <MenuItem onClick={handleOpenEditPost}>
               <Edit2 size="16" color="#FF8A65" variant="Outline" />
               <Typography variant="body2" ml={1}>
                 Chỉnh sửa bài viết
@@ -143,7 +161,7 @@ const PostComponent = (props) => {
           <Typography variant="subtitle1">100 lươt thích</Typography>
         </Box>
         <Box>
-          <Typography variant="subtitle1">50 bình luận</Typography>
+          <Typography variant="subtitle1">{countComments} bình luận</Typography>
         </Box>
       </Box>
       <Divider
@@ -162,7 +180,7 @@ const PostComponent = (props) => {
           <ButtonActionPost
             icon={<MessageText1 size="24" color="#65676b" />}
             text={"Bình luận"}
-            onClick={handleOpenComment}
+            onClick={handleOpenPostDetails}
           />
         </Grid>
         <Grid item xs={4}>

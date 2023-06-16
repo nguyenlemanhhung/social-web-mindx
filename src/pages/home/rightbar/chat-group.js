@@ -5,20 +5,20 @@ import AvatarSmallStyle from "../../../components/AvatarSmallStyle";
 
 const groupList = [
   {
-    name: "group chat 1",
-    avatar: require("../../../assets/images/feed-1.jpg"),
+    name: "web 67",
+    avatar: require("../../../assets/images/group-code.png"),
   },
   {
-    name: "group chat 2",
-    avatar: require("../../../assets/images/feed-2.jpg"),
+    name: "Cú đêm",
+    avatar: require("../../../assets/images/group-cu-dem.png"),
   },
   {
-    name: "group chat 3",
-    avatar: require("../../../assets/images/feed-3.jpg"),
+    name: "Code toàn Bug",
+    avatar: require("../../../assets/images/group-bug.jpeg"),
   },
   {
-    name: "group chat 4",
-    avatar: require("../../../assets/images/feed-3.jpg"),
+    name: "CIJS81(NX)",
+    avatar: require("../../../assets/images/mindx.jpeg"),
   },
   {
     name: "group chat 5",
@@ -48,7 +48,7 @@ const ChatGroup = () => {
           alignItem: "center",
         }}
       >
-        <Typography variant="h6">Nhóm trò chuyện</Typography>
+        <Typography variant="body1">Nhóm trò chuyện</Typography>
       </Box>
 
       <Stack spacing={1} sx={{ height: "100%", overflow: "scroll" }}>

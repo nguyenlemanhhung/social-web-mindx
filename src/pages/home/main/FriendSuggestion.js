@@ -62,7 +62,7 @@ const FriendSuggestion = () => {
       <Stack
         direction="row"
         spacing={2}
-        sx={{ overflow: "auto", marginTop: "10px" }}
+        sx={{ overflow: "auto", marginTop: "10px", padding: "5px 0" }}
       >
         {listFriendSuggestion.map((item, idx) => {
           return (
@@ -76,7 +76,8 @@ const FriendSuggestion = () => {
                 borderRadius: "10px",
                 "&:hover": {
                   backgroundColor: "#E7F3FF",
-                  boxShadow: "rgba(0, 0, 0, 0.1) 0px 1px 2px 0px",
+                  boxShadow:
+                    "rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px",
                 },
                 "&:hover > .stack-button": {
                   display: "flex",
@@ -111,6 +112,7 @@ const FriendSuggestion = () => {
                       "linear-gradient(112.14deg, rgb(52, 97, 255) 1.15%, rgb(152, 72, 255) 73.09%)",
                     borderRadius: "5px",
                     width: "max-content",
+                    textTransform: "capitalize",
                   }}
                 >
                   Kết bạn
@@ -120,6 +122,7 @@ const FriendSuggestion = () => {
                     border: "1px solid #b2b2b2",
                     color: "#656565",
                     width: "max-content",
+                    textTransform: "capitalize",
                   }}
                 >
                   Bỏ qua

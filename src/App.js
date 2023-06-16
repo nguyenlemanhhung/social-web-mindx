@@ -2,6 +2,8 @@ import "./App.css";
 import Router from "./routers";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { AuthContext, AuthProvider } from "./context/AuthContext";
+import { Provider as ReduxProvider } from "react-redux";
+import { store } from "./redux/store";
 
 const theme = createTheme({
   components: {
@@ -108,9 +110,11 @@ const theme = createTheme({
 function App() {
   return (
     <AuthProvider>
-      <ThemeProvider theme={theme}>
-        <Router />
-      </ThemeProvider>
+      <ReduxProvider store={store}>
+        <ThemeProvider theme={theme}>
+          <Router />
+        </ThemeProvider>
+      </ReduxProvider>
     </AuthProvider>
   );
 }

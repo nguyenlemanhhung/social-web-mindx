@@ -72,9 +72,10 @@ const UserProfile = () => {
         </Box>
       </Box>
       <Typography
-        variant="h6"
+        variant="body1"
         sx={{
           mb: 1,
+          fontWeight: "600",
         }}
       >
         {user.username}
@@ -113,12 +114,16 @@ const UserProfile = () => {
           borderRadius: "10px",
           border: "1px solid #E7F3FF",
           backgroundColor: "#f8f8f8",
+          color: "#697689",
+          textTransform: "capitalize",
           "&:hover": {
             backgroundColor: "#E7F3FF",
+            boxShadow:
+              "rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px",
           },
         }}
       >
-        My Profile
+        Hồ sơ cá nhân
       </Button>
     </CardStyle>
   );

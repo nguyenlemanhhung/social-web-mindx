@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Badge, Tooltip, Menu, MenuItem, Divider } from "@mui/material";
+import { Box, Tooltip, Divider } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { NavLink } from "react-router-dom";
 import NotificationHeader from "./notiheader";
@@ -49,29 +49,31 @@ const Nav = () => {
         justifyContent: "center",
         alignItems: "center",
         gap: "40px",
-        boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset",
+        // boxShadow: "rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset",
+        boxShadow:
+          "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
       }}
     >
       <NavLinkStyle to="/" className="nav-link" style={navLinkStyle}>
-        <Tooltip title="Home Page">
+        <Tooltip title="Trang chủ">
           <Home2 size="24" />
         </Tooltip>
       </NavLinkStyle>
 
       <NavLinkStyle to="/wall" className="nav-link" style={navLinkStyle}>
-        <Tooltip title="My Wall">
+        <Tooltip title="Trang cá nhân">
           <Personalcard size="24" />
         </Tooltip>
       </NavLinkStyle>
 
       <NavLinkStyle to="/messages" className="nav-link" style={navLinkStyle}>
-        <Tooltip title="messages">
+        <Tooltip title="Tin nhắn">
           <Messages size="24" />
         </Tooltip>
       </NavLinkStyle>
 
       <NavLinkStyle to="/favorite" className="nav-link" style={navLinkStyle}>
-        <Tooltip title="Favorites">
+        <Tooltip title="Bài viết yêu thich">
           <NoteFavorite size="24" />
         </Tooltip>
       </NavLinkStyle>

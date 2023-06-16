@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import AvatarSmallStyle from "./AvatarSmallStyle";
 
 const CommentPost = ({ avatar, text }) => {
   return (
@@ -9,19 +10,12 @@ const CommentPost = ({ avatar, text }) => {
         margin: "10px 0",
       }}
     >
-      <img
-        src={avatar}
-        style={{
-          width: "30px",
-          height: "30px",
-          borderRadius: "50%",
-          marginRight: "5px",
-        }}
-      />
+      <AvatarSmallStyle src={avatar} />
       <Typography
+        variant="body2"
         sx={{
           padding: "10px",
-          backgroundColor: "#f5f5f5",
+          backgroundColor: "#E7F0F9",
           borderRadius: "10px",
         }}
       >

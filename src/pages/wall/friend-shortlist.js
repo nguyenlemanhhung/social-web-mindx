@@ -4,36 +4,36 @@ import { Box, Typography, Grid, Link } from "@mui/material";
 
 const listFriends = [
   {
-    avatar: require("../../assets/images/profile-13.jpg"),
-    name: "Evgen Ledo",
+    name: "Xuân Nguyễn",
+    avatar: require("../../assets/images/profile-1.jpg"),
   },
   {
-    avatar: require("../../assets/images/profile-14.jpg"),
-    name: "Evgen Ledo",
+    name: "Cường Phạm",
+    avatar: require("../../assets/images/profile-2.jpg"),
   },
   {
-    avatar: require("../../assets/images/profile-15.jpg"),
-    name: "Evgen Ledo",
+    name: "Thảo Vit",
+    avatar: require("../../assets/images/profile-3.jpg"),
   },
   {
-    avatar: require("../../assets/images/profile-16.jpg"),
-    name: "Evgen Ledo",
+    name: "Lam Tran",
+    avatar: require("../../assets/images/profile-4.jpg"),
   },
   {
-    avatar: require("../../assets/images/profile-17.jpg"),
-    name: "Evgen Ledo",
+    name: "Thuỳ Dương",
+    avatar: require("../../assets/images/profile-5.jpg"),
   },
   {
-    avatar: require("../../assets/images/profile-18.jpg"),
-    name: "Evgen Ledo",
+    name: "Nhật Minh",
+    avatar: require("../../assets/images/profile-6.jpg"),
   },
   {
-    avatar: require("../../assets/images/profile-19.jpg"),
-    name: "Evgen Ledo",
+    name: "Hà Thu",
+    avatar: require("../../assets/images/profile-7.jpg"),
   },
   {
-    avatar: require("../../assets/images/profile-20.jpg"),
-    name: "Evgen Ledo",
+    name: "Nguyễn Khánh",
+    avatar: require("../../assets/images/profile-8.jpg"),
   },
 ];
 
@@ -48,7 +48,7 @@ const FriendShortList = () => {
             alignItems: "center",
           }}
         >
-          <Typography>Bạn bè của bạn</Typography>
+          <Typography variant="body1">Bạn bè của bạn</Typography>
           <Link
             href="#"
             underline="none"
@@ -60,10 +60,10 @@ const FriendShortList = () => {
               },
             }}
           >
-            <Typography>Tất cả</Typography>
+            <Typography variant="subtitle1">Tất cả</Typography>
           </Link>
         </Box>
-        <Typography variant="subtitle2" sx={{ mb: 3 }}>
+        <Typography variant="subtitle1" sx={{ mb: 3 }}>
           29 người
         </Typography>
         <Grid container spacing={2}>
@@ -78,7 +78,7 @@ const FriendShortList = () => {
                     borderRadius: "10px",
                   }}
                 />
-                <Typography variant="subtitle2">{item.name}</Typography>
+                <Typography variant="subtitle1">{item.name}</Typography>
               </Grid>
             );
           })}

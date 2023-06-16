@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -12,11 +13,12 @@ import {
   FilledInput,
 } from "@mui/material";
 import CommentPost from "../../../../components/CommentPost";
-import { LikeTag } from "iconsax-react";
-import SendIcon from "@mui/icons-material/Send";
-import CloseIcon from "@mui/icons-material/Close";
-
+import { LikeTag, Send, CloseSquare } from "iconsax-react";
+import NoAvatar from "../../../../assets/images/avatar.webp";
+import { createCommentApi } from "../../../../services/api";
 import AvataPostStyle from "../../../../components/AvataPostStyle";
+import { InsertEmoticon } from "@mui/icons-material";
+import useAuth from "../../../../hooks/useAuth";
 
 const listComments = [
   {
@@ -50,13 +52,36 @@ const PostDetailsDialog = ({
   handleClosePostDetails,
   postDetails,
 }) => {
-  {
-    console.log("postDetails:", postDetails);
-  }
+  const { user } = useAuth();
+
+  const post_id = postDetails._id;
+
+  const [comment, setComment] = useState("");
+
+  const handleCreateComment = async () => {
+    try {
+      const data = {
+        content: comment,
+        image: "",
+      };
+      await createCommentApi(post_id, data);
+      setComment("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Dialog open={openPostDetails} onClose={handleClosePostDetails}>
-      <DialogTitle id="customized-dialog-title" sx={{ textAlign: "center" }}>
-        Bài viết của {postDetails.user.username}
+      <DialogTitle
+        id="customized-dialog-title"
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      >
+        <Typography variant="body1">Bài viết của</Typography>
+        &nbsp;
+        <Typography variant="body1" sx={{ fontWeight: "600" }}>
+          {postDetails.user.username}
+        </Typography>
         <IconButton
           aria-label="close"
           onClick={handleClosePostDetails}
@@ -66,7 +91,7 @@ const PostDetailsDialog = ({
             top: 8,
           }}
         >
-          <CloseIcon />
+          <CloseSquare size="24" color="#697689" />
         </IconButton>
       </DialogTitle>
       <DialogContent sx={{ backgroundColor: "#fff" }} dividers>
@@ -77,26 +102,15 @@ const PostDetailsDialog = ({
             marginBottom: "15px",
           }}
         >
-          <AvataPostStyle src={postDetails ? postDetails.user.avatar : ""} />
+          <AvataPostStyle
+            src={postDetails.user.avatar ? postDetails.user.avatar : NoAvatar}
+          />
           <Box>
-            <Typography variant="subtitle2">
-              {postDetails.user.email}
-            </Typography>
-            <Typography
-              variant="body1"
-              sx={{
-                marginTop: "10px",
-              }}
-            >
-              {postDetails.user.username}
-            </Typography>
+            <Typography variant="body1">{postDetails.user.username}</Typography>
+            <Typography variant="subtitle1">2 giờ trước</Typography>
           </Box>
         </Box>
-        <Box
-          sx={{
-            padding: "20px",
-          }}
-        >
+        <Box>
           <Typography variant="body2">{postDetails.content}</Typography>
           <img
             style={{
@@ -113,6 +127,7 @@ const PostDetailsDialog = ({
             alignItems: "center",
             justifyContent: "space-between",
             padding: "0 20px",
+            marginTop: "10px",
           }}
         >
           <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -120,15 +135,22 @@ const PostDetailsDialog = ({
             <Typography variant="subtitle1">100 lươt thích</Typography>
           </Box>
           <Box>
-            <Typography variant="subtitle1">50 bình luận</Typography>
+            <Typography variant="subtitle1">
+              {postDetails && postDetails.comments
+                ? postDetails.comments.length
+                : "0"}
+              &nbsp;bình luận
+            </Typography>
           </Box>
         </Box>
         <Divider sx={{ margin: "10px 0 20px" }} />
-        {listComments.map((item, idx) => (
-          <CommentPost key={idx} avatar={item.avatar} text={item.text} />
-        ))}
+        {postDetails && postDetails.comments && postDetails.comments.length
+          ? postDetails.comments.map((item, idx) => (
+              <CommentPost key={idx} text={item.content} />
+            ))
+          : "Chưa có bình luận nào..."}
       </DialogContent>
-      <DialogActions>
+      <DialogActions sx={{ padding: "10px 20px" }}>
         <Box
           sx={{
             display: "flex",
@@ -136,7 +158,7 @@ const PostDetailsDialog = ({
             width: "100%",
           }}
         >
-          <AvataPostStyle src={postDetails.user.avatar} />
+          <AvataPostStyle src={user && user.avatar ? user.avatar : NoAvatar} />
           <Box
             sx={{
               width: "100%",
@@ -144,11 +166,14 @@ const PostDetailsDialog = ({
           >
             <FormControl fullWidth sx={{ marginBottom: "5px" }}>
               <FilledInput
+                onChange={(e) => setComment(e.target.value)}
+                value={comment}
+                name="comment"
                 placeholder="Viết bình luận..."
                 endAdornment={
                   <InputAdornment position="end">
-                    <IconButton edge="end">
-                      <SendIcon fontSize="small" />
+                    <IconButton onClick={handleCreateComment} edge="end">
+                      <Send size="24" color="#697689" />
                     </IconButton>
                   </InputAdornment>
                 }

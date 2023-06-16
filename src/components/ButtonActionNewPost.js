@@ -12,10 +12,12 @@ const ButtonActionNewPost = ({ onChange, text, icon, name, type }) => {
         border: "1px solid #E7F3FF",
         borderRadius: "20px",
         padding: "5px 15px",
-        fontSize: "12px",
+        fontSize: "13px",
         textTransform: "capitalize",
         "&:hover": {
           backgroundColor: "#E7F3FF",
+          boxShadow: "rgba(0, 0, 0, 0.18) 0px 2px 4px",
+          fontWeight: "600",
         },
       }}
     >
