@@ -99,7 +99,7 @@ const FriendsList = ({ handleOpenChatBox, item }) => {
             <AvatarSmallStyle
               src={item.avatar}
               style={{
-                border: `2px solid ${item.isOnline ? "#7ed882" : "#b2b2b2"}`,
+                border: `2px solid ${item.isOnline ? "#50a7fe" : "#b2b2b2"}`,
               }}
             />
 
@@ -110,7 +110,7 @@ const FriendsList = ({ handleOpenChatBox, item }) => {
                 variant="subtitle2"
                 sx={{
                   borderRadius: "10px",
-                  color: item.isOnline ? "#58c265" : "#656565",
+                  color: item.isOnline ? "#50a7fe" : "#656565",
                   lineHeight: "1",
                 }}
               >

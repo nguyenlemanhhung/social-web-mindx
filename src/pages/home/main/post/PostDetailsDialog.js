@@ -18,6 +18,7 @@ import NoAvatar from "../../../../assets/images/avatar.webp";
 import { createCommentApi } from "../../../../services/api";
 import AvataPostStyle from "../../../../components/AvataPostStyle";
 import { InsertEmoticon } from "@mui/icons-material";
+import useAuth from "../../../../hooks/useAuth";
 
 const listComments = [
   {
@@ -51,6 +52,8 @@ const PostDetailsDialog = ({
   handleClosePostDetails,
   postDetails,
 }) => {
+  const { user } = useAuth();
+
   const post_id = postDetails._id;
 
   const [comment, setComment] = useState("");
@@ -155,9 +158,7 @@ const PostDetailsDialog = ({
             width: "100%",
           }}
         >
-          <AvataPostStyle
-            src={postDetails.user.avatar ? postDetails.user.avatar : NoAvatar}
-          />
+          <AvataPostStyle src={user && user.avatar ? user.avatar : NoAvatar} />
           <Box
             sx={{
               width: "100%",
