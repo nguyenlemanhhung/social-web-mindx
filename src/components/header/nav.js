@@ -32,7 +32,7 @@ const Nav = () => {
   });
 
   const navLinkStyle = ({ isActive }) => ({
-    // color: "#fff",
+    color: "#fff",
     background: isActive
       ? "linear-gradient(112.14deg, #3461FF 1.15%, #9848FF 73.09%)"
       : "",

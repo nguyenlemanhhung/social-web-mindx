@@ -147,7 +147,11 @@ const PostDetailsDialog = ({
         <Divider sx={{ margin: "10px 0 20px" }} />
         {postDetails && postDetails.comments && postDetails.comments.length
           ? postDetails.comments.map((item, idx) => (
-              <CommentPost key={idx} text={item.content} />
+              <CommentPost
+                key={idx}
+                avatar={item.user.avatar ? item.user.avatar : NoAvatar}
+                text={item.content}
+              />
             ))
           : "Chưa có bình luận nào..."}
       </DialogContent>

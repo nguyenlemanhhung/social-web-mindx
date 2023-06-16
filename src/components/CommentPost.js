@@ -14,9 +14,21 @@ const CommentPost = ({ avatar, text }) => {
       <Typography
         variant="body2"
         sx={{
+          position: "relative",
           padding: "10px",
           backgroundColor: "#E7F0F9",
           borderRadius: "10px",
+          "&:before": {
+            content: '""',
+            position: "absolute",
+            left: 0,
+            top: "15px",
+            width: 10,
+            height: 10,
+            bgcolor: "#E7F0F9",
+            transform: "translate(-50%, -50%) rotate(45deg)",
+            zIndex: 0,
+          },
         }}
       >
         {text}
